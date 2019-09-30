@@ -23,12 +23,17 @@
     <option name="FILTER_BY_CURRENT_PROJECT" value="true" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44346498-8191-4973-bf3c-6057343e5623" name="Default Changelist" comment="" />
+    <list default="true" id="44346498-8191-4973-bf3c-6057343e5623" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/FrequencyAnalysisTask.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FrequencyAnalysisTask.cs" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/SentencesParser_Tests.cs" root0="FORCE_HIGHLIGHTING" />
@@ -113,6 +118,7 @@
       <workItem from="1568113182858" duration="11647000" />
       <workItem from="1568196615508" duration="4932000" />
       <workItem from="1569829984970" duration="6580000" />
+      <workItem from="1569838271558" duration="248000" />
     </task>
     <servers />
   </component>
@@ -121,6 +127,17 @@
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="true" />
   </component>
