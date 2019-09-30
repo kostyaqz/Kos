@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\gamanov\.Rider2019.1\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\gamanov\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_MySeleniumTests.368023746.00" t="ExcludeRecursive" />
+    <e p="D:\Обучалочные материалы\C#\Мастеркласс\MySeleniumTests" t="IncludeFlat">
+      <e p="MySeleniumTests" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="chromedriver.exe" t="Include" />
+        <e p="Labirint.cs" t="Include" />
+        <e p="MySeleniumTests.csproj" t="IncludeRecursive" />
+        <e p="MyTests.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Pages" t="Include">
+          <e p="BasketPage.cs" t="Include" />
+          <e p="DeliveryLightbox.cs" t="Include" />
+          <e p="HomePage.cs" t="Include" />
+        </e>
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="SeleniumTestBase.cs" t="Include" />
+        <e p="Task3.cs" t="Include" />
+        <e p="Training.cs" t="Include" />
+      </e>
+      <e p="MySeleniumTests.sln" t="IncludeFlat" />
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>

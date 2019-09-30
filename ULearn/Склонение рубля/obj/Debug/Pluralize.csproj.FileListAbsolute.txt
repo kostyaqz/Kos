@@ -1,0 +1,8 @@
+D:\Обучалочные материалы\C#\Склонение рубля\bin\Debug\rubles.txt
+D:\Обучалочные материалы\C#\Склонение рубля\bin\Debug\Pluralize.exe.config
+D:\Обучалочные материалы\C#\Склонение рубля\bin\Debug\Pluralize.exe
+D:\Обучалочные материалы\C#\Склонение рубля\bin\Debug\Pluralize.pdb
+D:\Обучалочные материалы\C#\Склонение рубля\obj\Debug\Pluralize.csprojAssemblyReference.cache
+D:\Обучалочные материалы\C#\Склонение рубля\obj\Debug\Pluralize.csproj.CoreCompileInputs.cache
+D:\Обучалочные материалы\C#\Склонение рубля\obj\Debug\Pluralize.exe
+D:\Обучалочные материалы\C#\Склонение рубля\obj\Debug\Pluralize.pdb

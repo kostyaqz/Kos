@@ -1,0 +1,89 @@
+using System;
+using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
+
+namespace SeleniumTests
+{
+[TestFixture]
+public class FullTest
+{
+private IWebDriver driver;
+private WebDriverWait wait;
+
+[SetUp]
+public void SetUp()
+{
+var options = new ChromeOptions();
+options.AddArgument("--start-maximized"); // браузер раскрывается на весь экран
+driver = new ChromeDriver(options);
+wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+}
+
+[Test]
+public void MyFullTest()
+{
+//Основной тест
+driver.Navigate().GoToUrl("https://www.labirint.ru/");
+
+//Локаторы
+var booksMenu = By.CssSelector("[data-toggle='header-genres']"); // Ссылка "Книги" в шапке 
+var allBooks = By.CssSelector(".b-menu-second-container [href='/books/']"); //Ссылка "Все книги" в раскрывшемся меню
+var addBookInCart = By.XPath("(//a[contains(@class,'btn')][contains(@class,'buy-link')])[1]"); //Кнопка "В корзину" или "Предзаказ" у первой книги
+var issueOrder = By.XPath("(//a[contains(@class,'btn')][contains(@class,'buy-link')][contains(@class,'btn-primary')][contains(@class,'btn-more')])[1]"); //Кнопка "Оформить" у первой книги
+var beginOrder = By.CssSelector("#basket-default-begin-order"); //Кнопка "Начать оформление"
+var courier = By.CssSelector("[data-gaid='cart_dlcourier']"); //Галочка для выбора курьерской доставки
+var city = By.CssSelector("input[data-suggeststype='district']"); //Поле ввода названия города
+var cityError = By.CssSelector("span.b-form-error"); //Локатор ошибки о неизвестном городе
+var street = By.CssSelector(".js-dlform-wrap input[data-suggeststype='streets']");//Название улицы
+var building = By.CssSelector(".js-dlform-wrap [name^=building]"); //Номер дома
+var flat = By.CssSelector(".js-dlform-wrap [name^=flat]"); //Номер квартиры
+var confirm = By.CssSelector(".js-dlform-wrap [value=Готово]"); //Кнопка "Готово"
+var courierDeliveryLightbox = By.CssSelector(".js-dlform-wrap"); //Локатор лайтбокса курьерской доставки
+var suggestedCity = By.CssSelector(".suggests-item-txt"); //Локатор подсказки названия города
+
+//Наводим на пункт "Книги", дожидаемся показа "Все книги" и кликаем по "Все книги"
+
+//Проверяем, что перешли на url https://www.labirint.ru/books/
+
+//Кликаем у первой книги по кнопке "В корзину"
+
+//Кликаем у первой книги по кнопке "Оформить"
+
+//Кликаем по кнопке "Начать оформление"
+
+//Выбираем курьерскую доставку
+
+//Вводим город некорректный
+
+//Убираем фокус с поля, например, кликаем Tab
+
+//Проверяем, что отобразилась ошибка
+
+//Очищаем поле ввода и вводим город корректный
+
+//Кликнуть по появившейся подсказке
+
+//Вводим название улицы
+
+//Вводим номер дома
+
+//Вводим номер квартиры
+
+//Указываем день доставки
+
+//И кликаем по кнопке "Готово"
+
+//Проверяем, что лайтбокс курерской доставки не виден
+}
+
+[TearDown]
+public void TearDown()
+{
+driver.Quit();
+driver = null;
+}
+}
+}

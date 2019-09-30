@@ -1,0 +1,3 @@
+﻿1>------ Сборка начата: проект: Interest, Конфигурация: Debug Any CPU ------
+1>  Interest -> C:\Users\gamanov\source\repos\Interest\Interest\bin\Debug\Interest.exe
+========== Сборка: успешно: 1, с ошибками: 0, без изменений: 0, пропущено: 0 ==========

@@ -1,0 +1,15 @@
+D:\Обучалочные материалы\C#\Мастеркласс\MySeleniumTests\MySeleniumTests\bin\Debug\chromedriver.exe
+D:\Обучалочные материалы\C#\Мастеркласс\MySeleniumTests\MySeleniumTests\bin\Debug\MySeleniumTests.dll
+D:\Обучалочные материалы\C#\Мастеркласс\MySeleniumTests\MySeleniumTests\bin\Debug\MySeleniumTests.pdb
+D:\Обучалочные материалы\C#\Мастеркласс\MySeleniumTests\MySeleniumTests\bin\Debug\nunit.framework.dll
+D:\Обучалочные материалы\C#\Мастеркласс\MySeleniumTests\MySeleniumTests\bin\Debug\WebDriver.dll
+D:\Обучалочные материалы\C#\Мастеркласс\MySeleniumTests\MySeleniumTests\bin\Debug\WebDriver.Support.dll
+D:\Обучалочные материалы\C#\Мастеркласс\MySeleniumTests\MySeleniumTests\bin\Debug\nunit.framework.pdb
+D:\Обучалочные материалы\C#\Мастеркласс\MySeleniumTests\MySeleniumTests\bin\Debug\nunit.framework.xml
+D:\Обучалочные материалы\C#\Мастеркласс\MySeleniumTests\MySeleniumTests\bin\Debug\WebDriver.xml
+D:\Обучалочные материалы\C#\Мастеркласс\MySeleniumTests\MySeleniumTests\bin\Debug\WebDriver.Support.xml
+D:\Обучалочные материалы\C#\Мастеркласс\MySeleniumTests\MySeleniumTests\obj\Debug\MySeleniumTests.csprojAssemblyReference.cache
+D:\Обучалочные материалы\C#\Мастеркласс\MySeleniumTests\MySeleniumTests\obj\Debug\MySeleniumTests.csproj.CoreCompileInputs.cache
+D:\Обучалочные материалы\C#\Мастеркласс\MySeleniumTests\MySeleniumTests\obj\Debug\MySeleniumTests.csproj.CopyComplete
+D:\Обучалочные материалы\C#\Мастеркласс\MySeleniumTests\MySeleniumTests\obj\Debug\MySeleniumTests.dll
+D:\Обучалочные материалы\C#\Мастеркласс\MySeleniumTests\MySeleniumTests\obj\Debug\MySeleniumTests.pdb

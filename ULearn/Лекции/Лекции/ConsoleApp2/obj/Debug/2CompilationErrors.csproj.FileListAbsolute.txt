@@ -1,0 +1,6 @@
+D:\Обучалочные материалы\C#\Лекции\Лекции\ConsoleApp2\obj\Debug\2CompilationErrors.csproj.CoreCompileInputs.cache
+D:\Обучалочные материалы\C#\Лекции\Лекции\ConsoleApp2\bin\Debug\ConsoleApp2.exe.config
+D:\Обучалочные материалы\C#\Лекции\Лекции\ConsoleApp2\bin\Debug\ConsoleApp2.exe
+D:\Обучалочные материалы\C#\Лекции\Лекции\ConsoleApp2\bin\Debug\ConsoleApp2.pdb
+D:\Обучалочные материалы\C#\Лекции\Лекции\ConsoleApp2\obj\Debug\ConsoleApp2.exe
+D:\Обучалочные материалы\C#\Лекции\Лекции\ConsoleApp2\obj\Debug\ConsoleApp2.pdb

@@ -1,0 +1,6 @@
+D:\Обучалочные материалы\C#\Лекции\Лекции\ConsoleApp1\bin\Debug\ConsoleApp1.exe.config
+D:\Обучалочные материалы\C#\Лекции\Лекции\ConsoleApp1\bin\Debug\ConsoleApp1.exe
+D:\Обучалочные материалы\C#\Лекции\Лекции\ConsoleApp1\bin\Debug\ConsoleApp1.pdb
+D:\Обучалочные материалы\C#\Лекции\Лекции\ConsoleApp1\obj\Debug\FirstStepS.csproj.CoreCompileInputs.cache
+D:\Обучалочные материалы\C#\Лекции\Лекции\ConsoleApp1\obj\Debug\ConsoleApp1.exe
+D:\Обучалочные материалы\C#\Лекции\Лекции\ConsoleApp1\obj\Debug\ConsoleApp1.pdb

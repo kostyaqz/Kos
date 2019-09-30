@@ -1,0 +1,9 @@
+D:\Обучалочные материалы\C#\AngryBirds\bin\Debug\AngryBirds.exe.config
+D:\Обучалочные материалы\C#\AngryBirds\bin\Debug\AngryBirds.exe
+D:\Обучалочные материалы\C#\AngryBirds\bin\Debug\AngryBirds.pdb
+D:\Обучалочные материалы\C#\AngryBirds\bin\Debug\TestingRoom.dll
+D:\Обучалочные материалы\C#\AngryBirds\obj\Debug\AngryBirds.csprojAssemblyReference.cache
+D:\Обучалочные материалы\C#\AngryBirds\obj\Debug\AngryBirds.csproj.CoreCompileInputs.cache
+D:\Обучалочные материалы\C#\AngryBirds\obj\Debug\AngryBirds.csproj.CopyComplete
+D:\Обучалочные материалы\C#\AngryBirds\obj\Debug\AngryBirds.exe
+D:\Обучалочные материалы\C#\AngryBirds\obj\Debug\AngryBirds.pdb

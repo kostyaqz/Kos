@@ -1,0 +1,11 @@
+D:\Обучалочные материалы\C#\ForTesting\Ulearn\UlearnExperiments\bin\Debug\netcoreapp2.1\UlearnExperiments.deps.json
+D:\Обучалочные материалы\C#\ForTesting\Ulearn\UlearnExperiments\bin\Debug\netcoreapp2.1\UlearnExperiments.runtimeconfig.json
+D:\Обучалочные материалы\C#\ForTesting\Ulearn\UlearnExperiments\bin\Debug\netcoreapp2.1\UlearnExperiments.runtimeconfig.dev.json
+D:\Обучалочные материалы\C#\ForTesting\Ulearn\UlearnExperiments\bin\Debug\netcoreapp2.1\UlearnExperiments.dll
+D:\Обучалочные материалы\C#\ForTesting\Ulearn\UlearnExperiments\bin\Debug\netcoreapp2.1\UlearnExperiments.pdb
+D:\Обучалочные материалы\C#\ForTesting\Ulearn\UlearnExperiments\obj\Debug\netcoreapp2.1\UlearnExperiments.csprojAssemblyReference.cache
+D:\Обучалочные материалы\C#\ForTesting\Ulearn\UlearnExperiments\obj\Debug\netcoreapp2.1\UlearnExperiments.csproj.CoreCompileInputs.cache
+D:\Обучалочные материалы\C#\ForTesting\Ulearn\UlearnExperiments\obj\Debug\netcoreapp2.1\UlearnExperiments.AssemblyInfoInputs.cache
+D:\Обучалочные материалы\C#\ForTesting\Ulearn\UlearnExperiments\obj\Debug\netcoreapp2.1\UlearnExperiments.AssemblyInfo.cs
+D:\Обучалочные материалы\C#\ForTesting\Ulearn\UlearnExperiments\obj\Debug\netcoreapp2.1\UlearnExperiments.dll
+D:\Обучалочные материалы\C#\ForTesting\Ulearn\UlearnExperiments\obj\Debug\netcoreapp2.1\UlearnExperiments.pdb

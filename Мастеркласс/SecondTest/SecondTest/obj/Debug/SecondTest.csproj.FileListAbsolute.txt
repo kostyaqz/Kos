@@ -1,0 +1,15 @@
+D:\Обучалочные материалы\C#\Мастеркласс\SecondTest\SecondTest\bin\Debug\SecondTest.dll
+D:\Обучалочные материалы\C#\Мастеркласс\SecondTest\SecondTest\bin\Debug\SecondTest.pdb
+D:\Обучалочные материалы\C#\Мастеркласс\SecondTest\SecondTest\bin\Debug\nunit.framework.dll
+D:\Обучалочные материалы\C#\Мастеркласс\SecondTest\SecondTest\bin\Debug\WebDriver.dll
+D:\Обучалочные материалы\C#\Мастеркласс\SecondTest\SecondTest\bin\Debug\WebDriver.Support.dll
+D:\Обучалочные материалы\C#\Мастеркласс\SecondTest\SecondTest\bin\Debug\nunit.framework.pdb
+D:\Обучалочные материалы\C#\Мастеркласс\SecondTest\SecondTest\bin\Debug\nunit.framework.xml
+D:\Обучалочные материалы\C#\Мастеркласс\SecondTest\SecondTest\bin\Debug\WebDriver.xml
+D:\Обучалочные материалы\C#\Мастеркласс\SecondTest\SecondTest\bin\Debug\WebDriver.Support.xml
+D:\Обучалочные материалы\C#\Мастеркласс\SecondTest\SecondTest\obj\Debug\SecondTest.csprojAssemblyReference.cache
+D:\Обучалочные материалы\C#\Мастеркласс\SecondTest\SecondTest\obj\Debug\SecondTest.csproj.CoreCompileInputs.cache
+D:\Обучалочные материалы\C#\Мастеркласс\SecondTest\SecondTest\obj\Debug\SecondTest.csproj.CopyComplete
+D:\Обучалочные материалы\C#\Мастеркласс\SecondTest\SecondTest\obj\Debug\SecondTest.dll
+D:\Обучалочные материалы\C#\Мастеркласс\SecondTest\SecondTest\obj\Debug\SecondTest.pdb
+D:\Обучалочные материалы\C#\Мастеркласс\SecondTest\SecondTest\bin\Debug\chromedriver.exe

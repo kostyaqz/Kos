@@ -1,0 +1,7 @@
+D:\Обучалочные материалы\C#\Dragon Curve\bin\Debug\DragonFractal.exe.config
+D:\Обучалочные материалы\C#\Dragon Curve\bin\Debug\DragonFractal.exe
+D:\Обучалочные материалы\C#\Dragon Curve\bin\Debug\DragonFractal.pdb
+D:\Обучалочные материалы\C#\Dragon Curve\obj\Debug\DragonFractal.csprojAssemblyReference.cache
+D:\Обучалочные материалы\C#\Dragon Curve\obj\Debug\DragonFractal.csproj.CoreCompileInputs.cache
+D:\Обучалочные материалы\C#\Dragon Curve\obj\Debug\DragonFractal.exe
+D:\Обучалочные материалы\C#\Dragon Curve\obj\Debug\DragonFractal.pdb
