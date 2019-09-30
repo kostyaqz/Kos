@@ -6,11 +6,11 @@ namespace TextAnalysis
     internal static class FrequencyAnalysisTask
     {
         static int maxValueOfChastota = 0;
-        static Dictionary<string, Dictionary<string, int>> dictionaryCounter = new Dictionary<string, Dictionary<string, int>>();
+        //static Dictionary<string, Dictionary<string, int>> dictionaryCounter = new Dictionary<string, Dictionary<string, int>>();
         public static Dictionary<string, string> GetMostFrequentNextWords(List<List<string>> text)
         {
             var frequencyDictionary = new Dictionary<string, string>();
-            
+            var dictionaryCounter = new Dictionary<string, Dictionary<string, int>>();
             var counter = 1;
             
             //Выдели в отдельный метод с N граммами (а лучше в парочку - троечку)
@@ -20,26 +20,26 @@ namespace TextAnalysis
                 {
                     if (counter < sentence.Count)
                     {
-                        NGrammCounter(word, sentence[counter]);
+                     //   NGrammCounter(word, sentence[counter]);
 
                         //Считаем сколько раз повторились ключ + значение в тексте
-//                        if (dictionaryCounter.ContainsKey(word) && dictionaryCounter[word].ContainsKey(sentence[counter]))
-//                        {
-//                            dictionaryCounter[word][sentence[counter]]++;
-//                        }
-//                        else
-//                        {
-//                            if (dictionaryCounter.ContainsKey(word))
-//                            {
-//                                dictionaryCounter[word].Add(sentence[counter], 1);
-//                            }
-//                            else
-//                            {
-//                                dictionaryCounter.Add(word, new Dictionary<string, int>());
-//                                dictionaryCounter[word].Add(sentence[counter], 1);
-//                            }
-//						
-//                        }
+                        if (dictionaryCounter.ContainsKey(word) && dictionaryCounter[word].ContainsKey(sentence[counter]))
+                        {
+                            dictionaryCounter[word][sentence[counter]]++;
+                        }
+                        else
+                        {
+                            if (dictionaryCounter.ContainsKey(word))
+                            {
+                                dictionaryCounter[word].Add(sentence[counter], 1);
+                            }
+                            else
+                            {
+                                dictionaryCounter.Add(word, new Dictionary<string, int>());
+                                dictionaryCounter[word].Add(sentence[counter], 1);
+                            }
+						
+                        }
                     }
                     counter++;
                 }
@@ -52,25 +52,25 @@ namespace TextAnalysis
                     var thirdWordValue = sentence[n + 2];
                     if (n + 2 < sentence.Count)
                     {
-                        NGrammCounter(twoWordsKey, thirdWordValue);
+                        //NGrammCounter(twoWordsKey, thirdWordValue);
                         //Считаем сколько раз повторились ключ + значение в тексте
-                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                        if (dictionaryCounter.ContainsKey(twoWordsKey) && dictionaryCounter[twoWordsKey].ContainsKey(thirdWordValue))
-//                        {
-//                            dictionaryCounter[twoWordsKey][thirdWordValue]++;
-//                        }
-//                        else
-//                        {
-//                            if (dictionaryCounter.ContainsKey(twoWordsKey))
-//                            {
-//                                dictionaryCounter[twoWordsKey].Add(thirdWordValue, 1);
-//                            }
-//                            else
-//                            {
-//                                dictionaryCounter.Add(twoWordsKey, new Dictionary<string, int>());
-//                                dictionaryCounter[twoWordsKey].Add(thirdWordValue, 1);
-//                            }
-//                        }
+//                        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        if (dictionaryCounter.ContainsKey(twoWordsKey) && dictionaryCounter[twoWordsKey].ContainsKey(thirdWordValue))
+                        {
+                            dictionaryCounter[twoWordsKey][thirdWordValue]++;
+                        }
+                        else
+                        {
+                            if (dictionaryCounter.ContainsKey(twoWordsKey))
+                            {
+                                dictionaryCounter[twoWordsKey].Add(thirdWordValue, 1);
+                            }
+                            else
+                            {
+                                dictionaryCounter.Add(twoWordsKey, new Dictionary<string, int>());
+                                dictionaryCounter[twoWordsKey].Add(thirdWordValue, 1);
+                            }
+                        }
                         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     }
 				    n++;
@@ -108,24 +108,24 @@ namespace TextAnalysis
             return frequencyDictionary;
         }
 
-        public static void NGrammCounter(string externalKey, string internalKey)
-        {
-            if (dictionaryCounter.ContainsKey(externalKey) && dictionaryCounter[externalKey].ContainsKey(internalKey))
-            {
-                dictionaryCounter[externalKey][internalKey]++;
-            }
-            else
-            {
-                if (dictionaryCounter.ContainsKey(externalKey))
-                {
-                    dictionaryCounter[externalKey].Add(internalKey, 1);
-                }
-                else
-                {
-                    dictionaryCounter.Add(externalKey, new Dictionary<string, int>());
-                    dictionaryCounter[externalKey].Add(internalKey, 1);
-                }
-            }
-        }
+//        public static void NGrammCounter(string externalKey, string internalKey)
+//        {
+//            if (dictionaryCounter.ContainsKey(externalKey) && dictionaryCounter[externalKey].ContainsKey(internalKey))
+//            {
+//                dictionaryCounter[externalKey][internalKey]++;
+//            }
+//            else
+//            {
+//                if (dictionaryCounter.ContainsKey(externalKey))
+//                {
+//                    dictionaryCounter[externalKey].Add(internalKey, 1);
+//                }
+//                else
+//                {
+//                    dictionaryCounter.Add(externalKey, new Dictionary<string, int>());
+//                    dictionaryCounter[externalKey].Add(internalKey, 1);
+//                }
+//            }
+//        }
     }
 }
