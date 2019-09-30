@@ -10,12 +10,13 @@ namespace TextAnalysis
         public static Dictionary<string, string> GetMostFrequentNextWords(List<List<string>> text)
         {
             var dictionaryCounter = new Dictionary<string, Dictionary<string, int>>();
-            var counter = 1;
+
             var returnedValue = new Dictionary<string, string>();
             
             //Выдели в отдельный метод с N граммами (а лучше в парочку - троечку)
             foreach (var sentence in text)
             {
+                var counter = 1;
                 foreach (var word in sentence)
                 {
                     if (counter < sentence.Count)
@@ -43,6 +44,7 @@ namespace TextAnalysis
                     }
                     counter++;
                 }
+                
 
                 
                 var n = 0;
