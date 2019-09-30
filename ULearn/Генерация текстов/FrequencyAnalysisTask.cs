@@ -4,7 +4,6 @@ namespace TextAnalysis
 {
 	internal static class FrequencyAnalysisTask
 	{
-		private static int maxValueOfChastota = 0;
 		public static Dictionary<string, string> GetMostFrequentNextWords(List<List<string>> text)
 		{
 			var dictionaryCounter = new Dictionary<string, Dictionary<string, int>>();
@@ -60,6 +59,7 @@ namespace TextAnalysis
 		public static Dictionary<string, string> GetFrequencyDictionary(
 			Dictionary<string, Dictionary<string, int>> dictionaryCounter)
 		{
+			var maxValueOfChastota = 0;
 			var frequencyDictionary = new Dictionary<string, string>();
 			foreach (var key1 in dictionaryCounter)
 			foreach (var valueOfDictionaryCounter in key1.Value)
