@@ -9,9 +9,9 @@ namespace TextAnalysis
         //static Dictionary<string, Dictionary<string, int>> dictionaryCounter = new Dictionary<string, Dictionary<string, int>>();
         public static Dictionary<string, string> GetMostFrequentNextWords(List<List<string>> text)
         {
-            var frequencyDictionary = new Dictionary<string, string>();
             var dictionaryCounter = new Dictionary<string, Dictionary<string, int>>();
             var counter = 1;
+            var returnedValue = new Dictionary<string, string>();
             
             //Выдели в отдельный метод с N граммами (а лучше в парочку - троечку)
             foreach (var sentence in text)
@@ -54,7 +54,6 @@ namespace TextAnalysis
                     {
                         //NGrammCounter(twoWordsKey, thirdWordValue);
                         //Считаем сколько раз повторились ключ + значение в тексте
-//                        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                         if (dictionaryCounter.ContainsKey(twoWordsKey) && dictionaryCounter[twoWordsKey].ContainsKey(thirdWordValue))
                         {
                             dictionaryCounter[twoWordsKey][thirdWordValue]++;
@@ -71,41 +70,14 @@ namespace TextAnalysis
                                 dictionaryCounter[twoWordsKey].Add(thirdWordValue, 1);
                             }
                         }
-                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     }
 				    n++;
                 }
                 
+                returnedValue = GetFrequencyDictionary(dictionaryCounter);
 
-                foreach (var key1 in dictionaryCounter)
-                {
-                    //valueOfDictionaryCounter - Значение, в виде [здарова, 2]. Там и текст и кол-во повторов
-                    foreach (var valueOfDictionaryCounter in key1.Value)
-                    {
-                        if (frequencyDictionary.ContainsKey(key1.Key))
-                        {
-
-                            if (valueOfDictionaryCounter.Value > maxValueOfChastota )
-                            {
-                                maxValueOfChastota = valueOfDictionaryCounter.Value;
-                                frequencyDictionary[key1.Key] = valueOfDictionaryCounter.Key; 
-                            }
-                            else if (valueOfDictionaryCounter.Value == maxValueOfChastota && (string.CompareOrdinal(valueOfDictionaryCounter.Key, frequencyDictionary[key1.Key]) < 0))
-                            {
-                                frequencyDictionary[key1.Key] = valueOfDictionaryCounter.Key;
-                            }
-                        }
-                        else
-                        {
-                            frequencyDictionary.Add(key1.Key, valueOfDictionaryCounter.Key);
-                            maxValueOfChastota = valueOfDictionaryCounter.Value;
-                        }
-
-                    }
-                }
             }
-            // А вот тут этот метод закончится
-            return frequencyDictionary;
+            return returnedValue;
         }
 
 //        public static void NGrammCounter(string externalKey, string internalKey)
@@ -127,5 +99,35 @@ namespace TextAnalysis
 //                }
 //            }
 //        }
+
+        public static Dictionary<string, string> GetFrequencyDictionary(Dictionary<string, Dictionary<string, int>> dictionaryCounter)
+        {
+            var frequencyDictionary = new Dictionary<string, string>();
+            foreach (var key1 in dictionaryCounter)
+            {
+                foreach (var valueOfDictionaryCounter in key1.Value)
+                {
+                    if (frequencyDictionary.ContainsKey(key1.Key))
+                    {
+
+                        if (valueOfDictionaryCounter.Value > maxValueOfChastota )
+                        {
+                            maxValueOfChastota = valueOfDictionaryCounter.Value;
+                            frequencyDictionary[key1.Key] = valueOfDictionaryCounter.Key; 
+                        }
+                        else if (valueOfDictionaryCounter.Value == maxValueOfChastota && (string.CompareOrdinal(valueOfDictionaryCounter.Key, frequencyDictionary[key1.Key]) < 0))
+                        {
+                            frequencyDictionary[key1.Key] = valueOfDictionaryCounter.Key;
+                        }
+                    }
+                    else
+                    {
+                        frequencyDictionary.Add(key1.Key, valueOfDictionaryCounter.Key);
+                        maxValueOfChastota = valueOfDictionaryCounter.Value;
+                    }
+                }
+            }
+            return frequencyDictionary;
+        }
     }
 }
