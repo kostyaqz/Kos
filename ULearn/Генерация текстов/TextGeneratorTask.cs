@@ -12,16 +12,7 @@ namespace TextAnalysis
             var words = new List<string>();
             var remainingWordsNumber = 0;
             words = phraseBeginning.Split().ToList();
-            if (words.Count >=2)
-            {
-                //Делаем поиск по ключу в nextWords, взяв последние 2 слова массива
-                //Найденное значение записываем в phraseBeginning
-                //Дописываем в массив найденное значение
-            }
-            else
-            {
-                //Делаем поиск по ключу в nextWords, взяв за ключ phraseBeginning
-            }
+  
             
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             
@@ -32,15 +23,16 @@ namespace TextAnalysis
             
             
             //находим 2 последних слова фразы, по ним ищем ключ в словаре
-            var twoLastWordsOfPhrase = words[words.Count - 1] + words[words.Count - 2];
-            var lastWordOfPhrase = words[words.Count - 1];
+            
 
-            while (wordsCount >= remainingWordsNumber)
+            while (wordsCount > remainingWordsNumber)
             {
+                var twoLastWordsOfPhrase = words[words.Count - 1] + words[words.Count - 2];
+                var lastWordOfPhrase = words[words.Count - 1];
                 if (nextWords.ContainsKey(twoLastWordsOfPhrase))
                 {
                     ////если есть, то записываем значение этого ключа в конец фразы
-                    phraseBeginning = phraseBeginning + nextWords[twoLastWordsOfPhrase];
+                    phraseBeginning = phraseBeginning + ' ' + nextWords[twoLastWordsOfPhrase];
                     words.Add(nextWords[twoLastWordsOfPhrase]);
                 }
                 ////если нет, то находим последнее слово фразы
@@ -50,7 +42,7 @@ namespace TextAnalysis
                     if (nextWords.ContainsKey(lastWordOfPhrase))
                     {
                         //если нашли, то записываем его в итоговую фразу
-                        phraseBeginning = phraseBeginning + nextWords[lastWordOfPhrase];
+                        phraseBeginning = phraseBeginning + ' ' + nextWords[lastWordOfPhrase];
                         words.Add(nextWords[lastWordOfPhrase]);
                     }
                     else
