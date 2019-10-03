@@ -8,6 +8,7 @@ namespace TextAnalysis
     {
         public static string ContinuePhrase(Dictionary<string, string> nextWords, string phraseBeginning, int wordsCount)
         {
+         
             var words = new List<string>();
             var remainingWordsNumber = 0;
             words = phraseBeginning.Split().ToList();
@@ -25,11 +26,20 @@ namespace TextAnalysis
                 }
             }
                         
+            AddContinuationOfTwoOrOneWord(nextWords, ref phraseBeginning, wordsCount, remainingWordsNumber, words);
+
+            
+            return phraseBeginning;
+        }
+
+        private static void AddContinuationOfTwoOrOneWord(Dictionary<string, string> nextWords, ref string phraseBeginning, int wordsCount,
+            int remainingWordsNumber, List<string> words)
+        {
             while (wordsCount > remainingWordsNumber)
             {
                 var twoLastWordsOfPhrase = words[words.Count - 2] + ' ' + words[words.Count - 1];
                 var lastWordOfPhrase = words[words.Count - 1];
-                
+
                 if (nextWords.ContainsKey(twoLastWordsOfPhrase))
                 {
                     AddTheWordToTheEndOfThePhrase(nextWords, ref phraseBeginning, twoLastWordsOfPhrase, words);
@@ -42,20 +52,15 @@ namespace TextAnalysis
                     }
                     else
                     {
-                       break;
+                        break;
                     }
                 }
+
                 remainingWordsNumber++;
             }
-
-            
-            return phraseBeginning;
         }
 
-        
-        
-        
-        
+
         private static void AddTheWordToTheEndOfThePhrase(Dictionary<string, string> nextWords, ref string phraseBeginning,
             string lastWord, List<string> words)
         {
