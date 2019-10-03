@@ -14,8 +14,15 @@ namespace TextAnalysis
 
             if (words.Count == 1)
             {
-                AddTheWordToTheEndOfThePhrase(nextWords, ref phraseBeginning, words[words.Count - 1], words);
-                remainingWordsNumber++;
+                if (nextWords.ContainsKey(words[words.Count - 1]) && wordsCount != 0)
+                {
+                    AddTheWordToTheEndOfThePhrase(nextWords, ref phraseBeginning, words[words.Count - 1], words);
+                    remainingWordsNumber++;
+                }
+                else
+                {
+                    return phraseBeginning;
+                }
             }
                         
             while (wordsCount > remainingWordsNumber)
