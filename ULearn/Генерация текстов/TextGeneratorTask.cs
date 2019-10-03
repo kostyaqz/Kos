@@ -8,71 +8,52 @@ namespace TextAnalysis
     {
         public static string ContinuePhrase(Dictionary<string, string> nextWords, string phraseBeginning, int wordsCount)
         {
-            //Понимаем сколько слов содержится в исходной фразе
             var words = new List<string>();
             var remainingWordsNumber = 0;
             words = phraseBeginning.Split().ToList();
-  
-            
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            
-            
-            //Понимаем сколько слов у нас осталось, от этого начинаем мутить цикл
-            
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            
-            
-            //находим 2 последних слова фразы, по ним ищем ключ в словаре
-            
 
+            if (words.Count == 1)
+            {
+                AddTheWordToTheEndOfThePhrase(nextWords, ref phraseBeginning, words[words.Count - 1], words);
+                remainingWordsNumber++;
+            }
+                        
             while (wordsCount > remainingWordsNumber)
             {
                 var twoLastWordsOfPhrase = words[words.Count - 1] + words[words.Count - 2];
                 var lastWordOfPhrase = words[words.Count - 1];
+                
                 if (nextWords.ContainsKey(twoLastWordsOfPhrase))
                 {
-                    ////если есть, то записываем значение этого ключа в конец фразы
-                    phraseBeginning = phraseBeginning + ' ' + nextWords[twoLastWordsOfPhrase];
-                    words.Add(nextWords[twoLastWordsOfPhrase]);
+                    AddTheWordToTheEndOfThePhrase(nextWords, ref phraseBeginning, twoLastWordsOfPhrase, words);
                 }
-                ////если нет, то находим последнее слово фразы
-                //по последнему слову фразы ищем ключ в словаре
                 else
                 {
                     if (nextWords.ContainsKey(lastWordOfPhrase))
                     {
-                        //если нашли, то записываем его в итоговую фразу
-                        phraseBeginning = phraseBeginning + ' ' + nextWords[lastWordOfPhrase];
-                        words.Add(nextWords[lastWordOfPhrase]);
+                        AddTheWordToTheEndOfThePhrase(nextWords, ref phraseBeginning, lastWordOfPhrase, words);
                     }
                     else
                     {
-                        //если нет, то обрываем весь цикл и возвращаем фразу
-                        break;
+                       break;
                     }
                 }
                 remainingWordsNumber++;
             }
 
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             return phraseBeginning;
+        }
+
+        
+        
+        
+        
+        private static void AddTheWordToTheEndOfThePhrase(Dictionary<string, string> nextWords, ref string phraseBeginning,
+            string lastWord, List<string> words)
+        {
+            phraseBeginning = phraseBeginning + ' ' + nextWords[lastWord];
+            words.Add(nextWords[lastWord]);
         }
     }
 }
