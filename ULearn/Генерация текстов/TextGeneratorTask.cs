@@ -20,7 +20,7 @@ namespace TextAnalysis
                         
             while (wordsCount > remainingWordsNumber)
             {
-                var twoLastWordsOfPhrase = words[words.Count - 1] + words[words.Count - 2];
+                var twoLastWordsOfPhrase = words[words.Count - 2] + ' ' + words[words.Count - 1];
                 var lastWordOfPhrase = words[words.Count - 1];
                 
                 if (nextWords.ContainsKey(twoLastWordsOfPhrase))
