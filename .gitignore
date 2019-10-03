@@ -91,3 +91,5 @@ AssemblyTitle.cs
 *.editorconfig
 /ULearn/Генерация текстов/.idea/.idea.TextAnalysis/.idea/workspace.xml
 /ULearn/Генерация текстов/.idea/.idea.TextAnalysis/.idea/workspace.xml
+/ULearn/Генерация текстов/.idea/.idea.TextAnalysis/.idea/workspace.xml
+/ULearn/Генерация текстов/obj/Debug/TextAnalysis.csprojAssemblyReference.cache
