@@ -24,7 +24,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44346498-8191-4973-bf3c-6057343e5623" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/FrequencyAnalysisTask.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FrequencyAnalysisTask.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TextAnalysis/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TextAnalysis/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Новая сжатая ZIP-папка.zip" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -79,7 +80,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected=".NET Project.Default">
     <configuration name="Default" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="$PROJECT_DIR$/bin/Debug/TextAnalysis.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -119,6 +120,7 @@
       <workItem from="1568196615508" duration="4932000" />
       <workItem from="1569829984970" duration="6580000" />
       <workItem from="1569838271558" duration="248000" />
+      <workItem from="1569909857321" duration="1483000" />
     </task>
     <servers />
   </component>
@@ -132,7 +134,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
