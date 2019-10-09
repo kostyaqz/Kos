@@ -10,6 +10,8 @@ namespace TextAnalysis
 
 			foreach (var sentences in text)
 			{
+				// эти два прохода выглядят достаточно неоптимально, потенциально их можно в 1 схлопнуть хотя бы, конечно, но так зато читаемость выше.
+				// Прикольно балансировать тут между производительностью и читаемостью в зависимости от потребностей.
 				CountBigrams(sentences, nGramsCounter);
 
 				CountTrigrams(sentences, nGramsCounter);
@@ -22,10 +24,11 @@ namespace TextAnalysis
 			Dictionary<string, Dictionary<string, int>> bigramCounter)
 		{
 			var counter = 1;
-			foreach (var words in sentence)
+			// слово, а не слова тогда
+			foreach (var word in sentence)
 			{
 				if (counter < sentence.Count)
-					CountNgrams(bigramCounter, words, sentence[counter]);
+					CountNgrams(bigramCounter, word, sentence[counter]);
 				counter++;
 			}
 		}
@@ -45,11 +48,11 @@ namespace TextAnalysis
 		}
 
 		private static void CountNgrams(Dictionary<string, Dictionary<string, int>> ngramCounter,
-			string twoWordsKey,
-			string thirdWordValue)
+			string twoWordsKey, string thirdWordValue)
+			// формально, это именование некорректно для биграмм (для следующего тожеактуально)
 		{
 			if (ngramCounter.ContainsKey(twoWordsKey) &&
-			    ngramCounter[twoWordsKey].ContainsKey(thirdWordValue))
+				ngramCounter[twoWordsKey].ContainsKey(thirdWordValue))
 				ngramCounter[twoWordsKey][thirdWordValue]++;
 			else
 				AddNewNGram(ngramCounter, twoWordsKey, thirdWordValue);
@@ -58,52 +61,55 @@ namespace TextAnalysis
 		private static void AddNewNGram(Dictionary<string, Dictionary<string, int>> dictionaryCounter,
 			string twoWordsKey, string thirdWordValue)
 		{
-			if (dictionaryCounter.ContainsKey(twoWordsKey))
-			{
-				dictionaryCounter[twoWordsKey].Add(thirdWordValue, 1);
-			}
-			else
+			// один и тот же вызов в if и else, можноо объединить
+			if (!dictionaryCounter.ContainsKey(twoWordsKey))
 			{
 				dictionaryCounter.Add(twoWordsKey, new Dictionary<string, int>());
-				dictionaryCounter[twoWordsKey].Add(thirdWordValue, 1);
 			}
+			
+			dictionaryCounter[twoWordsKey].Add(thirdWordValue, 1);
 		}
 
 		public static Dictionary<string, string> GetFrequencyDictionary(
 			Dictionary<string, Dictionary<string, int>> dictionaryCounter)
 		{
-			var frequencyCounter = 0;
 			var frequencyDictionary = new Dictionary<string, string>();
 			foreach (var key1 in dictionaryCounter)
-				frequencyCounter = CompareLexicographically(key1, frequencyDictionary, frequencyCounter);
+			{
+				var word = CompareLexicographically(key1.Value);
+				frequencyDictionary.Add(key1.Key, word);
+			}
 
 			return frequencyDictionary;
 		}
 
-		private static int CompareLexicographically(KeyValuePair<string, Dictionary<string, int>> key1,
-			Dictionary<string, string> frequencyDictionary, int frequencyCounter)
+		private static string CompareLexicographically(Dictionary<string, int> key1)
 		{
-			foreach (var valueOfDictionaryCounter in key1.Value)
-				if (frequencyDictionary.ContainsKey(key1.Key))
+			string mostFrequentWord = null;
+			var frequency = 0;
+
+			foreach (var wordWithFrequency in key1)
+
+				if (mostFrequentWord == null)
 				{
-					if (valueOfDictionaryCounter.Value > frequencyCounter)
-					{
-						frequencyCounter = valueOfDictionaryCounter.Value;
-						frequencyDictionary[key1.Key] = valueOfDictionaryCounter.Key;
-					}
-					else if (valueOfDictionaryCounter.Value == frequencyCounter &&
-					         string.CompareOrdinal(valueOfDictionaryCounter.Key, frequencyDictionary[key1.Key]) < 0)
-					{
-						frequencyDictionary[key1.Key] = valueOfDictionaryCounter.Key;
-					}
+					mostFrequentWord = wordWithFrequency.Key;
+					frequency = wordWithFrequency.Value;
 				}
 				else
 				{
-					frequencyDictionary.Add(key1.Key, valueOfDictionaryCounter.Key);
-					frequencyCounter = valueOfDictionaryCounter.Value;
+					if (wordWithFrequency.Value > frequency)
+					{
+						mostFrequentWord = wordWithFrequency.Key;
+						frequency = wordWithFrequency.Value;
+					}
+					else if (wordWithFrequency.Value == frequency &&
+					         string.CompareOrdinal(wordWithFrequency.Key, mostFrequentWord) < 0)
+					{
+						mostFrequentWord = wordWithFrequency.Key;
+					}
 				}
 
-			return frequencyCounter;
+			return mostFrequentWord;
 		}
 	}
 }
