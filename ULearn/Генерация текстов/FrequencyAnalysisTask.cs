@@ -10,7 +10,8 @@ namespace TextAnalysis
 
 			foreach (var sentences in text)
 			{
-				// эти два прохода выглядят достаточно неоптимально, потенциально их можно в 1 схлопнуть хотя бы, конечно, но так зато читаемость выше.
+				// эти два прохода выглядят достаточно неоптимально, потенциально
+				// их можно в 1 схлопнуть хотя бы, конечно, но так зато читаемость выше.
 				// Прикольно балансировать тут между производительностью и читаемостью в зависимости от потребностей.
 				CountBigrams(sentences, nGramsCounter);
 
@@ -49,10 +50,10 @@ namespace TextAnalysis
 
 		private static void CountNgrams(Dictionary<string, Dictionary<string, int>> ngramCounter,
 			string twoWordsKey, string thirdWordValue)
-			// формально, это именование некорректно для биграмм (для следующего тожеактуально)
 		{
+			// формально, это именование некорректно для биграмм (для следующего тожеактуально)
 			if (ngramCounter.ContainsKey(twoWordsKey) &&
-				ngramCounter[twoWordsKey].ContainsKey(thirdWordValue))
+			    ngramCounter[twoWordsKey].ContainsKey(thirdWordValue))
 				ngramCounter[twoWordsKey][thirdWordValue]++;
 			else
 				AddNewNGram(ngramCounter, twoWordsKey, thirdWordValue);
@@ -63,10 +64,8 @@ namespace TextAnalysis
 		{
 			// один и тот же вызов в if и else, можноо объединить
 			if (!dictionaryCounter.ContainsKey(twoWordsKey))
-			{
 				dictionaryCounter.Add(twoWordsKey, new Dictionary<string, int>());
-			}
-			
+
 			dictionaryCounter[twoWordsKey].Add(thirdWordValue, 1);
 		}
 
@@ -87,9 +86,7 @@ namespace TextAnalysis
 		{
 			string mostFrequentWord = null;
 			var frequency = 0;
-
 			foreach (var wordWithFrequency in key1)
-
 				if (mostFrequentWord == null)
 				{
 					mostFrequentWord = wordWithFrequency.Key;
