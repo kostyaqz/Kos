@@ -49,44 +49,44 @@ namespace TextAnalysis
 		}
 
 		private static void CountNgrams(Dictionary<string, Dictionary<string, int>> ngramCounter,
-			string twoWordsKey, string thirdWordValue)
+			string phraseStart, string phraseEnd)
 		{
 			// формально, это именование некорректно для биграмм (для следующего тожеактуально)
-			if (ngramCounter.ContainsKey(twoWordsKey) &&
-			    ngramCounter[twoWordsKey].ContainsKey(thirdWordValue))
-				ngramCounter[twoWordsKey][thirdWordValue]++;
+			if (ngramCounter.ContainsKey(phraseStart) &&
+			    ngramCounter[phraseStart].ContainsKey(phraseEnd))
+				ngramCounter[phraseStart][phraseEnd]++;
 			else
-				AddNewNGram(ngramCounter, twoWordsKey, thirdWordValue);
+				AddNewNGram(ngramCounter, phraseStart, phraseEnd);
 		}
 
 		private static void AddNewNGram(Dictionary<string, Dictionary<string, int>> dictionaryCounter,
-			string twoWordsKey, string thirdWordValue)
+			string phraseStart, string phraseEnd)
 		{
 			// один и тот же вызов в if и else, можноо объединить
-			if (!dictionaryCounter.ContainsKey(twoWordsKey))
-				dictionaryCounter.Add(twoWordsKey, new Dictionary<string, int>());
+			if (!dictionaryCounter.ContainsKey(phraseStart))
+				dictionaryCounter.Add(phraseStart, new Dictionary<string, int>());
 
-			dictionaryCounter[twoWordsKey].Add(thirdWordValue, 1);
+			dictionaryCounter[phraseStart].Add(phraseEnd, 1);
 		}
 
 		public static Dictionary<string, string> GetFrequencyDictionary(
 			Dictionary<string, Dictionary<string, int>> dictionaryCounter)
 		{
 			var frequencyDictionary = new Dictionary<string, string>();
-			foreach (var key1 in dictionaryCounter)
+			foreach (var phraseStart in dictionaryCounter)
 			{
-				var word = CompareLexicographically(key1.Value);
-				frequencyDictionary.Add(key1.Key, word);
+				var word = CompareLexicographically(phraseStart.Value);
+				frequencyDictionary.Add(phraseStart.Key, word);
 			}
 
 			return frequencyDictionary;
 		}
 
-		private static string CompareLexicographically(Dictionary<string, int> key1)
+		private static string CompareLexicographically(Dictionary<string, int> phraseEndRepetitionCount)
 		{
 			string mostFrequentWord = null;
 			var frequency = 0;
-			foreach (var wordWithFrequency in key1)
+			foreach (var wordWithFrequency in phraseEndRepetitionCount)
 				if (mostFrequentWord == null)
 				{
 					mostFrequentWord = wordWithFrequency.Key;
