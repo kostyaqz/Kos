@@ -14,9 +14,10 @@ namespace TextAnalysis
 
 			if (words.Count == 1)
 			{
-				if (nextWords.ContainsKey(words[words.Count - 1]) && wordsCount != 0)
+				if (wordsCount != 0  && nextWords.ContainsKey(words[words.Count - 1]))
 				{
-					AddWordToTheEndOfPhrase(nextWords, words[words.Count - 1], words);
+					var lastWord = nextWords[words[words.Count - 1]];
+					AddWordToTheEndOfPhrase(lastWord, words);
 					remainingWordsNumber++;
 				}
 				else
@@ -32,15 +33,15 @@ namespace TextAnalysis
 
 				if (nextWords.ContainsKey(twoLastWordsOfPhrase))
 				{
-					AddWordToTheEndOfPhrase(nextWords, twoLastWordsOfPhrase, words);
+					AddWordToTheEndOfPhrase(nextWords[twoLastWordsOfPhrase], words);
+				}
+				else if (nextWords.ContainsKey(lastWordOfPhrase))
+				{
+					AddWordToTheEndOfPhrase(nextWords[lastWordOfPhrase], words);
 				}
 				else
-				{
-					if (nextWords.ContainsKey(lastWordOfPhrase))
-						AddWordToTheEndOfPhrase(nextWords, lastWordOfPhrase, words);
-					else
 						break;
-				}
+				
 
 				remainingWordsNumber++;
 			}
@@ -49,10 +50,10 @@ namespace TextAnalysis
 		}
 
 
-		private static void AddWordToTheEndOfPhrase(Dictionary<string, string> nextWords,
+		private static void AddWordToTheEndOfPhrase(
 			string lastWord, List<string> words)
 		{
-			words.Add(nextWords[lastWord]);
+			words.Add(lastWord);
 		}
 
 		private static string WriteWordsWithSpace(List<string> words)
