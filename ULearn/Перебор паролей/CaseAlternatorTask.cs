@@ -18,14 +18,11 @@ namespace Passwords
 		{
 			if (startIndex == word.Length)
 			{
-				AddNewWord(word, result);
+				result.Add(new string(word));
 				return;
 			}
 
-			if (char.IsLetter(word[startIndex]))
-				IterateOverAllRegistersForEachLetter(word, startIndex, result);
-			else
-				AlternateCharCases(word, startIndex + 1, result);
+			IterateOverAllRegistersForEachLetter(word, startIndex, result);
 		}
 
 		private static void IterateOverAllRegistersForEachLetter(char[] word, int startIndex, List<string> result)
@@ -33,13 +30,8 @@ namespace Passwords
 			word[startIndex] = char.ToLower(word[startIndex]);
 			AlternateCharCases(word, startIndex + 1, result);
 			word[startIndex] = char.ToUpper(word[startIndex]);
-			if (word[startIndex] == char.ToLower(word[startIndex])) return;
+			if (!char.IsLetter(word[startIndex]) || word[startIndex] == char.ToLower(word[startIndex])) return;
 			AlternateCharCases(word, startIndex + 1, result);
-		}
-
-		private static void AddNewWord(char[] word, List<string> result)
-		{
-			result.Add(new string(word));
 		}
 
 		[TestFixture]
