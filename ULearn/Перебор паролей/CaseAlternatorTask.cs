@@ -33,36 +33,13 @@ namespace Passwords
 			word[startIndex] = char.ToLower(word[startIndex]);
 			AlternateCharCases(word, startIndex + 1, result);
 			word[startIndex] = char.ToUpper(word[startIndex]);
-			if (CheckIfUppercaseIsPossible(word, startIndex)) return;
+			if (word[startIndex] == char.ToLower(word[startIndex])) return;
 			AlternateCharCases(word, startIndex + 1, result);
 		}
 
 		private static void AddNewWord(char[] word, List<string> result)
 		{
 			result.Add(new string(word));
-			RemoveDuplicates(result);
-		}
-
-		private static void RemoveDuplicates(List<string> result)
-		{
-			var index = result.Count - 1;
-			while (index > 0)
-				if (result[index] == result[index - 1])
-				{
-					if (index < result.Count - 1)
-						(result[index], result[result.Count - 1]) = (result[result.Count - 1], result[index]);
-					result.RemoveAt(result.Count - 1);
-					index--;
-				}
-				else
-				{
-					index--;
-				}
-		}
-
-		private static bool CheckIfUppercaseIsPossible(char[] word, int startIndex)
-		{
-			return char.IsLower(word[startIndex]);
 		}
 
 		[TestFixture]
