@@ -1,4 +1,3 @@
-using System;
 using System.Text;
 using NUnit.Framework;
 
@@ -18,6 +17,7 @@ namespace TableParser
 		[TestCase("\"1\"", 0, "1", 3)]
 		[TestCase(@"'\\""'", 0, @"\""", 5)]
 		[TestCase(@"""\\'""", 0, @"\'", 5)]
+		
 		public void Test(string line, int startIndex, string expectedValue, int expectedLength)
 		{
 			var actualToken = QuotedFieldTask.ReadQuotedField(line, startIndex);
@@ -30,9 +30,9 @@ namespace TableParser
 		public static Token ReadQuotedField(string line, int startIndex)
 		{
 			var builder = new StringBuilder();
-			var currentIndex = startIndex + 1;// в цикле есть переменная i же
+			var currentIndex = startIndex + 1;
 
-			for (var i = currentIndex; i < line.Length; i++)
+			while (currentIndex < line.Length)
 			{
 				if (IsQuotedTokenEnd(line, startIndex, currentIndex))
 				{
@@ -53,16 +53,16 @@ namespace TableParser
 		private static string Unescape(string line)  
 		{
 			return line.Replace(@"\\", @"\")
-				// но ведь это неправильно. вообще, несколько replace подряд с одними и теми же символами -
-				// всегда повод рассмотреть их очень аккуратно.
-				// Кусочек где-то в токене, выделенном одинарными кавычками:
-				// '     \\"      '
-				// буквально два слеша и двойная кавычка. с точки зрения логики токенов, это экранированный слеш и 
-				// кавычка, не нуждающаяся в экранировании. Unesape же сделает из них одну кавычку. закодил этот кейс 
-				// тесткейсом
-				// плохие новости - изменением порядка Replace-ов это не починить.
 				.Replace("\\\"", "\"")
 				.Replace("\\\'", "\'");
+			// но ведь это неправильно. вообще, несколько replace подряд с одними и теми же символами -
+			// всегда повод рассмотреть их очень аккуратно.
+			// Кусочек где-то в токене, выделенном одинарными кавычками:
+			// '     \\"      '
+			// буквально два слеша и двойная кавычка. с точки зрения логики токенов, это экранированный слеш и 
+			// кавычка, не нуждающаяся в экранировании. Unesape же сделает из них одну кавычку. закодил этот кейс 
+			// тесткейсом
+			// плохие новости - изменением порядка Replace-ов это не починить.
 		}
 
 		private static bool IsQuotedTokenEnd(string line, int startIndex, int currentIndex)
