@@ -54,10 +54,11 @@ namespace GeometryTasks
 
 		public static Vector Add(Vector vector1, Vector vector2)
 		{
-			var resultVector = new Vector();
-			resultVector.X = vector1.X + vector2.X;
-			resultVector.Y = vector1.Y + vector2.Y;
-			return resultVector;
+			return new Vector()
+			{
+				X = vector1.X + vector2.X,
+				Y = vector1.Y + vector2.Y
+			};
 		}
 
 		public static bool IsVectorInSegment(Vector vector, Segment segment)
