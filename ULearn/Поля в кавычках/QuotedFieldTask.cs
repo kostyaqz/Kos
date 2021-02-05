@@ -17,7 +17,9 @@ namespace TableParser
 		[TestCase(@"""\\'""", 0, @"\'", 5)]
 		[TestCase(@"""\\'""aa", 0, @"\'", 5)]
 		[TestCase(@"""\\'", 0, @"\'", 4)]
-		[TestCase(@"\\\\\\\\\\'", 0, @"\\\\\\'", 11)]
+		[TestCase(@"'\\\\\\\\\\'", 0, @"\\\\\", 12)]
+		[TestCase(@"'aaaaa\\'", 0, @"aaaaa\", 9)]
+		[TestCase(@"'aaa\\'aa", 0, @"aaa\", 7)]
 		public void Test(string line, int startIndex, string expectedValue, int expectedLength)
 		{
 			var actualToken = QuotedFieldTask.ReadQuotedField(line, startIndex);
@@ -51,10 +53,7 @@ namespace TableParser
 		{
 			for (var i = 1; i < line.Length; i++)
 				if ((line[i - 1] == '\\') & (line[i] == '\\' || line[i] == '"' || line[i] == '\''))
-				{
 					line.Remove(i - 1, 1);
-					i++;
-				}
 
 			return line.ToString();
 		}
@@ -63,7 +62,18 @@ namespace TableParser
 		{
 			if (line[currentIndex] != line[startIndex]) return false;
 			if (line[currentIndex - 1] != '\\') return true;
-			return line[currentIndex] == line.Length - 1;
+			return CalculateSlashesCount(line, startIndex, currentIndex) % 2 == 0;
+		}
+
+		private static int CalculateSlashesCount(string line, int startIndex, int currentIndex)
+		{
+			var slashCount = 0;
+
+			for (var i = currentIndex - 1; i >= startIndex; i--)
+				if (line[i] == '\\') slashCount++;
+				else break;
+
+			return slashCount;
 		}
 	}
 }
