@@ -100,7 +100,7 @@ namespace Digger
             var nextPosition = act;
             //var map = Game.Map[x, y + 1];
 
-            if (Game.KeyPressed == Keys.Up && Block.IsNoYBorder(y) && !Block.IsBarrier(x, y))
+            if (Block.IsNoYBorder(y) && Block.IsNoBarrier(x, y))
                 act.DeltaY = 1;
 
             return act;
@@ -155,17 +155,17 @@ namespace Digger
         {
             return y < Game.MapHeight - 1;
         }
-        public static bool IsBarrier(int x, int y)
+        public static bool IsNoBarrier(int x, int y)
         {
             if (Game.Map[x, y + 1] is Player)
-                return true;
+                return false;
             if (Game.Map[x, y + 1] is Gold)
-                return true;
+                return false;
             if (Game.Map[x, y + 1] is Terrain)
-                return true;
+                return false;
             if (Game.Map[x, y + 1] is Sack)
-                return true;
-            return false;
+                return false;
+            return true;
         }
     }
 }
