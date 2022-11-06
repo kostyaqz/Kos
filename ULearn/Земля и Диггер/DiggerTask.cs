@@ -100,7 +100,7 @@ namespace Digger
             var nextPosition = act;
             //var map = Game.Map[x, y + 1];
 
-            if (Game.KeyPressed == Keys.Up && !Block.IsYBorder(y) && !Block.IsBarrier(x, y))
+            if (Game.KeyPressed == Keys.Up && Block.IsNoYBorder(y) && !Block.IsBarrier(x, y))
                 act.DeltaY = 1;
 
             return act;
@@ -151,7 +151,7 @@ namespace Digger
     //Класс для падения мешка
     public class Block
     {
-        public static bool IsYBorder(int y)
+        public static bool IsNoYBorder(int y)
         {
             return y < Game.MapHeight - 1;
         }
@@ -162,6 +162,8 @@ namespace Digger
             if (Game.Map[x, y + 1] is Gold)
                 return true;
             if (Game.Map[x, y + 1] is Terrain)
+                return true;
+            if (Game.Map[x, y + 1] is Sack)
                 return true;
             return false;
         }
