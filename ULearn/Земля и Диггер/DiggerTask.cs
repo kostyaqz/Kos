@@ -55,13 +55,13 @@ namespace Digger
             };
             var key = Game.KeyPressed;
 
-            if (key == Keys.Left && x > 0)
+            if (key == Keys.Left && Block.IsNoBorder(x, y, "Left"))
                 act.DeltaX = -1;
-            if (key == Keys.Right && x < Game.MapWidth - 1)
+            if (key == Keys.Right && Block.IsNoBorder(x, y, "Right"))
                 act.DeltaX = 1;
-            if (key == Keys.Up && y > 0)
+            if (key == Keys.Up && Block.IsNoBorder(x, y, "Up"))
                 act.DeltaY = -1;
-            if (key == Keys.Down && y < Game.MapHeight - 1)
+            if (key == Keys.Down && Block.IsNoBorder(x, y, "Down"))
                 act.DeltaY = 1;
             return act;
         }
@@ -94,13 +94,8 @@ namespace Digger
                 DeltaY = 0,
                 TransformTo = null
             };
-
-            //Game.Map[x, y].toString() == "<имя файла>.png" или Game.Map (is или ==) <имя объекта>
-
-            var nextPosition = act;
-            //var map = Game.Map[x, y + 1];
-
-            if (Block.IsNoYBorder(y) && Block.IsNoBarrier(x, y))
+            
+            if (Block.IsNoBorder(x, y, "Down") && Block.IsEmpty(x, y))
                 act.DeltaY = 1;
 
             return act;
@@ -151,11 +146,23 @@ namespace Digger
     //Класс для падения мешка
     public class Block
     {
-        public static bool IsNoYBorder(int y)
+        public static bool IsNoBorder(int x, int y, string direction)
         {
-            return y < Game.MapHeight - 1;
+            switch (direction)
+            {
+                case "Down":
+                    return y < Game.MapHeight - 1;
+                case "Up":
+                    return y > 0;
+                case "Left":
+                    return x > 0;
+                case "Right":
+                    return x < Game.MapWidth - 1;
+                default:
+                    return false;
+            }
         }
-        public static bool IsNoBarrier(int x, int y)
+        public static bool IsEmpty(int x, int y)
         {
             if (Game.Map[x, y + 1] is Player)
                 return false;
