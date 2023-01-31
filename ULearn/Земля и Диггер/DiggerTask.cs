@@ -57,7 +57,7 @@ namespace Digger
 
             if (key == Keys.Left && Block.IsNoBorder(x, y, "Left"))
                 act.DeltaX = -1;
-            if (key == Keys.Right && Block.IsNoBorder(x, y, "Right"))
+            if (key == Keys.Right && Block.IsNoBorder(x, y, "Right") && !(Game.Map[x + 1, y] is Sack))
                 act.DeltaX = 1;
             if (key == Keys.Up && Block.IsNoBorder(x, y, "Up"))
                 act.DeltaY = -1;
@@ -68,6 +68,10 @@ namespace Digger
 
         public bool DeadInConflict(ICreature conflictedObject)
         {
+            if (conflictedObject is Sack)
+            {
+                return true;
+            }
             return false;
         }
     }
@@ -103,7 +107,7 @@ namespace Digger
 
         public bool DeadInConflict(ICreature conflictedObject)
         {
-            return true;
+            return false;
         }
     }
 
@@ -143,7 +147,7 @@ namespace Digger
     //Обработка движений должна выехать отдельно
     // static Movements
 
-    //Класс для падения мешка
+    //Класс для падения мешка и хождения диггера
     public class Block
     {
         public static bool IsNoBorder(int x, int y, string direction)
@@ -164,6 +168,7 @@ namespace Digger
         }
         public static bool IsEmpty(int x, int y)
         {
+            // А может тут можно написать что-то вроде "если это игрок или золото и т.д., то фолс, а если нет, то тру
             if (Game.Map[x, y + 1] is Player)
                 return false;
             if (Game.Map[x, y + 1] is Gold)
@@ -174,5 +179,29 @@ namespace Digger
                 return false;
             return true;
         }
+
+        public static bool IsSomething(int x, int y, string some, string direction)
+        {
+            switch (direction)
+            {
+                case "Down":
+                    return Game.Map[x, y + 1].ToString() == some;
+                case "Up":
+                    return Game.Map[x, y - 1].ToString() == some;
+                case "Left":
+                    return Game.Map[x - 1, y].ToString() == some;
+                case "Right":
+                    return Game.Map[x + 1, y].ToString() == some;
+                default:
+                    return false;
+            }
+        }
+    }
+
+
+//
+    public class DeathRule
+    {
+
     }
 }
