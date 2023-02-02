@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
+using System.Windows.Media;
 
 namespace Digger
 {
@@ -98,10 +100,17 @@ namespace Digger
                 DeltaY = 0,
                 TransformTo = null
             };
-            
-            if (Block.IsNoBorder(x, y, "Down") && Block.IsEmpty(x, y))
-                act.DeltaY = 1;
 
+            if (Block.IsNoBorder(x, y, "Down") && Block.IsEmpty(x, y))
+            {
+                act.DeltaY = 1;
+                if (Block.CanTransformToGold(x, y))
+                {
+                    act.TransformTo = new Gold();
+                }
+            }
+
+            //Можно считать, что мешок падал достаточно для превращения в золото, если над нам 2 и более клеток пустые
             return act;
         }
 
@@ -168,17 +177,28 @@ namespace Digger
         }
         public static bool IsEmpty(int x, int y)
         {
-            // А может тут можно написать что-то вроде "если это игрок или золото и т.д., то фолс, а если нет, то тру
-            if (Game.Map[x, y + 1] is Player)
-                return false;
-            if (Game.Map[x, y + 1] is Gold)
-                return false;
-            if (Game.Map[x, y + 1] is Terrain)
-                return false;
-            if (Game.Map[x, y + 1] is Sack)
-                return false;
-            return true;
+            return Game.Map[x, y + 1] is null;
         }
+
+        public static bool CanTransformToGold(int x, int y)
+        {
+            if (y > 1)
+            {
+                if (Game.Map[x, y - 1] is Player )
+                    return false;
+                if (Game.Map[x, y - 1] is Gold)
+                    return false;
+                if (Game.Map[x, y - 1] is Terrain)
+                    return false;
+                if (Game.Map[x, y - 1] is Sack)
+                    return false;
+                if (Game.Map[x, y - 1] is Terrain)
+                    return false;
+                return true;
+            }
+            return false;
+        }
+
 
         public static bool IsSomething(int x, int y, string some, string direction)
         {
