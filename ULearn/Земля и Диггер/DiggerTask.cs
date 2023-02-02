@@ -57,13 +57,13 @@ namespace Digger
             };
             var key = Game.KeyPressed;
 
-            if (key == Keys.Left && Block.IsNoBorder(x, y, "Left"))
+            if (key == Keys.Left && Block.IsNoBorder(x, y, "Left") && !(Game.Map[x - 1, y] is Sack))
                 act.DeltaX = -1;
             if (key == Keys.Right && Block.IsNoBorder(x, y, "Right") && !(Game.Map[x + 1, y] is Sack))
                 act.DeltaX = 1;
-            if (key == Keys.Up && Block.IsNoBorder(x, y, "Up"))
+            if (key == Keys.Up && Block.IsNoBorder(x, y, "Up") && !(Game.Map[x, y - 1] is Sack))
                 act.DeltaY = -1;
-            if (key == Keys.Down && Block.IsNoBorder(x, y, "Down"))
+            if (key == Keys.Down && Block.IsNoBorder(x, y, "Down") && !(Game.Map[x, y + 1] is Sack))
                 act.DeltaY = 1;
             return act;
         }
@@ -100,17 +100,15 @@ namespace Digger
                 DeltaY = 0,
                 TransformTo = null
             };
-
+            //Он по-идее должен падать на игрока и убивать, но сейчас он падает только, если внизу пусто
             if (Block.IsNoBorder(x, y, "Down") && Block.IsEmpty(x, y))
             {
                 act.DeltaY = 1;
-                if (Block.CanTransformToGold(x, y))
+                if (Block.IsNoBorder(x, y, "Down") && Block.IsEmpty(x, y))
                 {
                     act.TransformTo = new Gold();
                 }
             }
-
-            //Можно считать, что мешок падал достаточно для превращения в золото, если над нам 2 и более клеток пустые
             return act;
         }
 
@@ -152,10 +150,6 @@ namespace Digger
         }
     }
 
-
-    //Обработка движений должна выехать отдельно
-    // static Movements
-
     //Класс для падения мешка и хождения диггера
     public class Block
     {
@@ -179,49 +173,5 @@ namespace Digger
         {
             return Game.Map[x, y + 1] is null;
         }
-
-        public static bool CanTransformToGold(int x, int y)
-        {
-            if (y > 1)
-            {
-                if (Game.Map[x, y - 1] is Player )
-                    return false;
-                if (Game.Map[x, y - 1] is Gold)
-                    return false;
-                if (Game.Map[x, y - 1] is Terrain)
-                    return false;
-                if (Game.Map[x, y - 1] is Sack)
-                    return false;
-                if (Game.Map[x, y - 1] is Terrain)
-                    return false;
-                return true;
-            }
-            return false;
-        }
-
-
-        public static bool IsSomething(int x, int y, string some, string direction)
-        {
-            switch (direction)
-            {
-                case "Down":
-                    return Game.Map[x, y + 1].ToString() == some;
-                case "Up":
-                    return Game.Map[x, y - 1].ToString() == some;
-                case "Left":
-                    return Game.Map[x - 1, y].ToString() == some;
-                case "Right":
-                    return Game.Map[x + 1, y].ToString() == some;
-                default:
-                    return false;
-            }
-        }
-    }
-
-
-//
-    public class DeathRule
-    {
-
     }
 }
