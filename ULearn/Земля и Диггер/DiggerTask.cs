@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
-using System.Windows.Media;
-using NUnit.Framework.Constraints;
+﻿using System.Windows.Forms;
 
 namespace Digger
 {
@@ -71,10 +68,8 @@ namespace Digger
 
         public bool DeadInConflict(ICreature conflictedObject)
         {
-            if (conflictedObject is Sack)
-            {
-                return true;
-            }
+            if (conflictedObject is Sack) return true;
+
             return false;
         }
     }
@@ -83,6 +78,8 @@ namespace Digger
 
     public class Sack : ICreature
     {
+        private int counter;
+
         public string GetImageFileName()
         {
             return "Sack.png";
@@ -93,8 +90,6 @@ namespace Digger
             return 10;
         }
 
-        int counter;
-
         public CreatureCommand Act(int x, int y)
         {
             if (Block.IsNoBorder(x, y, "Down"))
@@ -104,14 +99,12 @@ namespace Digger
                 if (nextPoint is null || (nextPoint is Player && counter > 0))
                 {
                     counter++;
-                    return new CreatureCommand() {DeltaY = 1};
+                    return new CreatureCommand { DeltaY = 1 };
                 }
             }
 
-            if (counter > 1)
-            {
-                return new CreatureCommand() {TransformTo = new Gold() };
-            }
+            if (counter > 1) return new CreatureCommand { TransformTo = new Gold() };
+
             return new CreatureCommand();
         }
 
@@ -138,7 +131,7 @@ namespace Digger
 
         public CreatureCommand Act(int x, int y)
         {
-            var act = new CreatureCommand()
+            var act = new CreatureCommand
             {
                 DeltaX = 0,
                 DeltaY = 0,
