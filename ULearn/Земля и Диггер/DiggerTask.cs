@@ -169,6 +169,7 @@ namespace Digger
             return 3;
         }
 
+        private ICreature playerPoint = PlayerLocation.PlayerPoint();
         public CreatureCommand Act(int x, int y)
         {
             var act = new CreatureCommand
@@ -210,7 +211,7 @@ namespace Digger
 
     public class PlayerLocation
     {
-        public static ICreature PlayerPoint()
+        public static int [] PlayerPoint()
         {
             for (int i = 0; i < Game.MapHeight; i++)
             {
@@ -218,11 +219,11 @@ namespace Digger
                 {
                     if (Game.Map[i, j] is Player)
                     {
-                        return Game.Map[i, j];
+                        return new[] { i, j };
                     }
                 }
             }
-            return Game.Map[-1, -1];
+            return new[] { -1, -1 };
         }
     }
 }
