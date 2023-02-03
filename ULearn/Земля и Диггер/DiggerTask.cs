@@ -157,6 +157,35 @@ namespace Digger
         }
     }
 
+    public class Monster : ICreature
+    {
+        public string GetImageFileName()
+        {
+            return "Monster.png";
+        }
+
+        public int GetDrawingPriority()
+        {
+            return 3;
+        }
+
+        public CreatureCommand Act(int x, int y)
+        {
+            var act = new CreatureCommand
+            {
+                DeltaX = 0,
+                DeltaY = 0,
+                TransformTo = null
+            };
+
+            return act;        }
+
+        public bool DeadInConflict(ICreature conflictedObject)
+        {
+            return false;
+        }
+    }
+
     //Класс для падения мешка и хождения диггера
     public class Border
     {
