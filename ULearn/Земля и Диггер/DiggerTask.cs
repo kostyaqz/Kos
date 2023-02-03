@@ -55,22 +55,28 @@ namespace Digger
             };
             var key = Game.KeyPressed;
 
-            if (key == Keys.Left && Border.IsNoBorder(x, y, "Left") && !(Game.Map[x - 1, y] is Sack))
-                act.DeltaX = -1;
-            if (key == Keys.Right && Border.IsNoBorder(x, y, "Right") && !(Game.Map[x + 1, y] is Sack))
-                act.DeltaX = 1;
-            if (key == Keys.Up && Border.IsNoBorder(x, y, "Up") && !(Game.Map[x, y - 1] is Sack))
-                act.DeltaY = -1;
-            if (key == Keys.Down && Border.IsNoBorder(x, y, "Down") && !(Game.Map[x, y + 1] is Sack))
-                act.DeltaY = 1;
+            switch (key)
+            {
+                case Keys.Left when Border.IsNoBorder(x, y, "Left") && !(Game.Map[x - 1, y] is Sack):
+                    act.DeltaX = -1;
+                    break;
+                case Keys.Right when Border.IsNoBorder(x, y, "Right") && !(Game.Map[x + 1, y] is Sack):
+                    act.DeltaX = 1;
+                    break;
+                case Keys.Up when Border.IsNoBorder(x, y, "Up") && !(Game.Map[x, y - 1] is Sack):
+                    act.DeltaY = -1;
+                    break;
+                case Keys.Down when Border.IsNoBorder(x, y, "Down") && !(Game.Map[x, y + 1] is Sack):
+                    act.DeltaY = 1;
+                    break;
+            }
+
             return act;
         }
 
         public bool DeadInConflict(ICreature conflictedObject)
         {
-            if (conflictedObject is Sack) return true;
-
-            return false;
+            return conflictedObject is Sack;
         }
     }
 
@@ -102,9 +108,12 @@ namespace Digger
                     return new CreatureCommand { DeltaY = 1 };
                 }
             }
-
-            if (counter > 1) return new CreatureCommand { TransformTo = new Gold() };
-
+            if (counter > 1)
+            {
+                counter = 0;
+                return new CreatureCommand() { TransformTo = new Gold() };
+            }
+            counter = 0;
             return new CreatureCommand();
         }
 
@@ -143,6 +152,7 @@ namespace Digger
 
         public bool DeadInConflict(ICreature conflictedObject)
         {
+            Game.Scores = Game.Scores + 10;
             return true;
         }
     }
