@@ -178,7 +178,8 @@ namespace Digger
                 TransformTo = null
             };
 
-            return act;        }
+            return act;
+        }
 
         public bool DeadInConflict(ICreature conflictedObject)
         {
@@ -204,6 +205,24 @@ namespace Digger
                 default:
                     return false;
             }
+        }
+    }
+
+    public class PlayerLocation
+    {
+        public static ICreature PlayerPoint()
+        {
+            for (int i = 0; i < Game.MapHeight; i++)
+            {
+                for (int j = 0; j < Game.MapWidth; j++)
+                {
+                    if (Game.Map[i, j] is Player)
+                    {
+                        return Game.Map[i, j];
+                    }
+                }
+            }
+            return Game.Map[-1, -1];
         }
     }
 }
