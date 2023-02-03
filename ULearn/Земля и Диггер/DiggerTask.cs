@@ -152,7 +152,10 @@ namespace Digger
 
         public bool DeadInConflict(ICreature conflictedObject)
         {
-            Game.Scores = Game.Scores + 10;
+            if (conflictedObject is Player)
+            {
+                Game.Scores = Game.Scores + 10;
+            }
             return true;
         }
     }
