@@ -102,7 +102,7 @@ namespace Digger
             {
                 var nextPoint = Game.Map[x, y + 1];
 
-                if (nextPoint is null || (nextPoint is Player && counter > 0))
+                if (nextPoint is null || (nextPoint is Player && counter > 0) || (nextPoint is Monster && counter > 0))
                 {
                     counter++;
                     return new CreatureCommand { DeltaY = 1 };
