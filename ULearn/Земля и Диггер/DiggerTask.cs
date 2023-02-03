@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Windows.Media;
+using NUnit.Framework.Constraints;
 
 namespace Digger
 {
@@ -92,24 +93,26 @@ namespace Digger
             return 10;
         }
 
+        int counter;
+
         public CreatureCommand Act(int x, int y)
         {
-            var act = new CreatureCommand()
+            if (Block.IsNoBorder(x, y, "Down"))
             {
-                DeltaX = 0,
-                DeltaY = 0,
-                TransformTo = null
-            };
-            //Он по-идее должен падать на игрока и убивать, но сейчас он падает только, если внизу пусто
-            if (Block.IsNoBorder(x, y, "Down") && Block.IsEmpty(x, y))
-            {
-                act.DeltaY = 1;
-                if (Block.IsNoBorder(x, y, "Down") && Block.IsEmpty(x, y))
+                var nextPoint = Game.Map[x, y + 1];
+
+                if (nextPoint is null || (nextPoint is Player && counter > 0))
                 {
-                    act.TransformTo = new Gold();
+                    counter++;
+                    return new CreatureCommand() {DeltaY = 1};
                 }
             }
-            return act;
+
+            if (counter > 1)
+            {
+                return new CreatureCommand() {TransformTo = new Gold() };
+            }
+            return new CreatureCommand();
         }
 
         public bool DeadInConflict(ICreature conflictedObject)
@@ -117,6 +120,7 @@ namespace Digger
             return false;
         }
     }
+
 
     // Золото
 
@@ -168,10 +172,6 @@ namespace Digger
                 default:
                     return false;
             }
-        }
-        public static bool IsEmpty(int x, int y)
-        {
-            return Game.Map[x, y + 1] is null;
         }
     }
 }
