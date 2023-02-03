@@ -169,7 +169,7 @@ namespace Digger
             return 3;
         }
 
-        private ICreature playerPoint = PlayerLocation.PlayerPoint();
+        int [] playerPoint = PlayerLocation.PlayerPoint();
         public CreatureCommand Act(int x, int y)
         {
             var act = new CreatureCommand
@@ -178,6 +178,20 @@ namespace Digger
                 DeltaY = 0,
                 TransformTo = null
             };
+
+            if (playerPoint[0] == -1 && playerPoint[1] == -1)
+            {
+                return act;
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+
 
             return act;
         }
