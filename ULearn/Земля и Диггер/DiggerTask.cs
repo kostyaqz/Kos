@@ -55,13 +55,13 @@ namespace Digger
             };
             var key = Game.KeyPressed;
 
-            if (key == Keys.Left && Block.IsNoBorder(x, y, "Left") && !(Game.Map[x - 1, y] is Sack))
+            if (key == Keys.Left && Border.IsNoBorder(x, y, "Left") && !(Game.Map[x - 1, y] is Sack))
                 act.DeltaX = -1;
-            if (key == Keys.Right && Block.IsNoBorder(x, y, "Right") && !(Game.Map[x + 1, y] is Sack))
+            if (key == Keys.Right && Border.IsNoBorder(x, y, "Right") && !(Game.Map[x + 1, y] is Sack))
                 act.DeltaX = 1;
-            if (key == Keys.Up && Block.IsNoBorder(x, y, "Up") && !(Game.Map[x, y - 1] is Sack))
+            if (key == Keys.Up && Border.IsNoBorder(x, y, "Up") && !(Game.Map[x, y - 1] is Sack))
                 act.DeltaY = -1;
-            if (key == Keys.Down && Block.IsNoBorder(x, y, "Down") && !(Game.Map[x, y + 1] is Sack))
+            if (key == Keys.Down && Border.IsNoBorder(x, y, "Down") && !(Game.Map[x, y + 1] is Sack))
                 act.DeltaY = 1;
             return act;
         }
@@ -92,7 +92,7 @@ namespace Digger
 
         public CreatureCommand Act(int x, int y)
         {
-            if (Block.IsNoBorder(x, y, "Down"))
+            if (Border.IsNoBorder(x, y, "Down"))
             {
                 var nextPoint = Game.Map[x, y + 1];
 
@@ -148,7 +148,7 @@ namespace Digger
     }
 
     //Класс для падения мешка и хождения диггера
-    public class Block
+    public class Border
     {
         public static bool IsNoBorder(int x, int y, string direction)
         {
