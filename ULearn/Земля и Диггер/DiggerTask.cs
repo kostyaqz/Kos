@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Data.Common;
+using System.Windows.Forms;
 
 namespace Digger
 {
@@ -186,14 +187,14 @@ namespace Digger
             {
                 return act;
             }
-            
-            
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+
+
 
 
             return act;
@@ -241,6 +242,25 @@ namespace Digger
                 }
             }
             return new[] { -1, -1 };
+        }
+    }
+
+    public class WhoIsIt
+    {
+        //Todo Пока сделал, чтобы он возвращал строку, но в идеале он должен возвращать сразу нужный класс.
+        public static string WhoIsForMonster(int x, int y)
+        {
+            if (Game.Map[x, y] is Player)
+            {
+                return "Player";
+            }
+            if (Game.Map[x, y] is Monster)
+            {
+                return "Monster";
+            }
+            //Todo. И так далее. Нужно дописать для всех сущностей + какое-то ожидаение, если попало что-то непонятное.
+            //Todo Пока ориентируюсь на то, что этот класс будет юзать монстр, так что и сущности тоже для него
+            return "";
         }
     }
 }
