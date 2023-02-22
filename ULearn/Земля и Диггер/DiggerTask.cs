@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Digger
 {
-    //Земля
     public class Terrain : ICreature
     {
         public string GetImageFileName()
@@ -35,7 +31,6 @@ namespace Digger
         }
     }
 
-    // Игрок, он же диггер
     public class Player : ICreature
     {
         public string GetImageFileName()
@@ -83,8 +78,6 @@ namespace Digger
         }
     }
 
-    // Мешок с золотом
-
     public class Sack : ICreature
     {
         private int counter;
@@ -111,11 +104,13 @@ namespace Digger
                     return new CreatureCommand { DeltaY = 1 };
                 }
             }
+
             if (counter > 1)
             {
                 counter = 0;
-                return new CreatureCommand() { TransformTo = new Gold() };
+                return new CreatureCommand { TransformTo = new Gold() };
             }
+
             counter = 0;
             return new CreatureCommand();
         }
@@ -125,9 +120,6 @@ namespace Digger
             return false;
         }
     }
-
-
-    // Золото
 
     public class Gold : ICreature
     {
@@ -155,10 +147,7 @@ namespace Digger
 
         public bool DeadInConflict(ICreature conflictedObject)
         {
-            if (conflictedObject is Player)
-            {
-                Game.Scores = Game.Scores + 10;
-            }
+            if (conflictedObject is Player) Game.Scores = Game.Scores + 10;
             return true;
         }
     }
@@ -177,37 +166,31 @@ namespace Digger
 
         public CreatureCommand Act(int x, int y)
         {
-            int [] playerPoint = PlayerLocation.PlayerPoint();
+            var playerPoint = PlayerLocation.GetPlayerPoint();
+            var act = new CreatureCommand { DeltaX = 0, DeltaY = 0, TransformTo = null };
 
-            var act = new CreatureCommand
-            {
-                DeltaX = 0,
-                DeltaY = 0,
-                TransformTo = null
-            };
+            if (playerPoint[0] == -1 && playerPoint[1] == -1) return act;
 
-            if (playerPoint[0] == -1 && playerPoint[1] == -1)
-            {
-                return act;
-            }
-
-            //todo тут логика того как монстр движется к человеку
-
-            var direction = MonsterWalking.MonsterDirection(x, y, playerPoint[0], playerPoint[1]);
+            var direction = MonsterWalking.GetMonsterDirection(x, y, playerPoint[0], playerPoint[1]);
 
             switch (direction)
             {
-                case "Left": act.DeltaX = -1;
+                case "Left":
+                    act.DeltaX = -1;
                     break;
-                case "Right": act.DeltaX = 1;
+                case "Right":
+                    act.DeltaX = 1;
                     break;
-                case "Up": act.DeltaY = -1;
+                case "Up":
+                    act.DeltaY = -1;
                     break;
-                case "Down": act.DeltaY = 1;
+                case "Down":
+                    act.DeltaY = 1;
                     break;
                 case "Stop":
                     break;
             }
+
             return act;
         }
 
@@ -217,7 +200,6 @@ namespace Digger
         }
     }
 
-    //Класс для падения мешка и хождения диггера
     public class Border
     {
         public static bool IsNoBorder(int x, int y, string direction)
@@ -238,20 +220,14 @@ namespace Digger
         }
     }
 
-    public class PlayerLocation
+    public abstract class PlayerLocation
     {
-        public static int [] PlayerPoint()
+        public static int[] GetPlayerPoint()
         {
-            for (int i = 0; i < Game.MapWidth; i++)
-            {
-                for (int j = 0; j < Game.MapHeight; j++)
-                {
-                    if (Game.Map[i, j] is Player)
-                    {
-                        return new[] { i, j };
-                    }
-                }
-            }
+            for (var i = 0; i < Game.MapWidth; i++)
+            for (var j = 0; j < Game.MapHeight; j++)
+                if (Game.Map[i, j] is Player)
+                    return new[] { i, j };
             return new[] { -1, -1 };
         }
     }
@@ -260,43 +236,30 @@ namespace Digger
     {
         public static bool CanMonsterGo(int x, int y)
         {
-            if ((Game.Map[x, y] is Terrain) || (Game.Map[x, y] is Sack) || (Game.Map[x, y] is Monster))
-            {
-                return false;
-            }
-
-            return true;
+            return !(Game.Map[x, y] is Terrain) && !(Game.Map[x, y] is Sack) && !(Game.Map[x, y] is Monster);
         }
 
-        public static string MonsterDirection(int xMonster, int yMonster, int xPlayer, int yPlayer)
+        public static string GetMonsterDirection(int xMonster, int yMonster, int xPlayer, int yPlayer)
         {
-            var distance = new Dictionary<string, double>();
-
-            var realDistance = Math.Sqrt(Math.Pow(xPlayer - xMonster, 2) + Math.Pow(yPlayer - yMonster, 2));
-
-            //Todo надо разобраться с x и y. Кажется, что тут не то передается, что должно. Путаются x и y монстра и человека
-            if (Border.IsNoBorder(xMonster, yMonster, "Left") && CanMonsterGo(xMonster - 1, yMonster))
+            var direction = "";
+            if (xPlayer == xMonster)
             {
-                distance.Add("Left", realDistance);
+                if (yPlayer < yMonster && CanMonsterGo(xMonster, yMonster - 1))
+                    direction = "Up";
+                else if (yPlayer > yMonster && CanMonsterGo(xMonster, yMonster + 1))
+                    direction = "Down";
             }
-            if (Border.IsNoBorder(xMonster, yMonster, "Right") && CanMonsterGo(xMonster + 1, yMonster))
+            else
             {
-                distance.Add("Right", realDistance);
-            }
-            if (Border.IsNoBorder(xMonster, yMonster, "Up") && CanMonsterGo(xMonster, yMonster - 1))
-            {
-                distance.Add("Up", realDistance);
-            }
-            if (Border.IsNoBorder(xMonster, yMonster, "Down") && CanMonsterGo(xMonster, yMonster + 1))
-            {
-                distance.Add("Down", realDistance);
+                if (xPlayer < xMonster && CanMonsterGo(xMonster - 1, yMonster))
+                    direction = "Left";
+                else if (xPlayer > xMonster && CanMonsterGo(xMonster + 1, yMonster))
+                    direction = "Right";
             }
 
-            if (distance.Count == 0)
-                return "Stop";
-
-            return distance.OrderByDescending(x => x.Value).First().Key;
+            if (Border.IsNoBorder(xMonster, yMonster, direction) && direction != "")
+                return direction;
+            return "Stop";
         }
-
     }
 }
