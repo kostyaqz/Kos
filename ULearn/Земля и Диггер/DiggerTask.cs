@@ -78,9 +78,9 @@ namespace Digger
         }
     }
 
-    public class Sack : ICreature
+    public abstract class Sack : ICreature
     {
-        private int counter;
+        private int _counter;
 
         public string GetImageFileName()
         {
@@ -98,20 +98,20 @@ namespace Digger
             {
                 var nextPoint = Game.Map[x, y + 1];
 
-                if (nextPoint is null || (nextPoint is Player && counter > 0) || (nextPoint is Monster && counter > 0))
+                if (nextPoint is null || (nextPoint is Player && _counter > 0) || (nextPoint is Monster && _counter > 0))
                 {
-                    counter++;
+                    _counter++;
                     return new CreatureCommand { DeltaY = 1 };
                 }
             }
 
-            if (counter > 1)
+            if (_counter > 1)
             {
-                counter = 0;
+                _counter = 0;
                 return new CreatureCommand { TransformTo = new Gold() };
             }
 
-            counter = 0;
+            _counter = 0;
             return new CreatureCommand();
         }
 
@@ -169,9 +169,9 @@ namespace Digger
             var playerPoint = PlayerLocation.GetPlayerPoint();
             var act = new CreatureCommand { DeltaX = 0, DeltaY = 0, TransformTo = null };
 
-            if (playerPoint[0] == -1 && playerPoint[1] == -1) return act;
+            if (playerPoint.x == -1 && playerPoint.y == -1) return act;
 
-            var direction = MonsterWalking.GetMonsterDirection(x, y, playerPoint[0], playerPoint[1]);
+            var direction = MonsterWalking.GetMonsterDirection(x, y, playerPoint.x, playerPoint.y);
 
             switch (direction)
             {
@@ -222,17 +222,18 @@ namespace Digger
 
     public abstract class PlayerLocation
     {
-        public static int[] GetPlayerPoint()
+
+        public static (int x, int y) GetPlayerPoint()
         {
             for (var i = 0; i < Game.MapWidth; i++)
             for (var j = 0; j < Game.MapHeight; j++)
                 if (Game.Map[i, j] is Player)
-                    return new[] { i, j };
-            return new[] { -1, -1 };
+                    return (i, j);
+            return (-1, -1 );
         }
     }
 
-    public class MonsterWalking
+    public static class MonsterWalking
     {
         public static bool CanMonsterGo(int x, int y)
         {
