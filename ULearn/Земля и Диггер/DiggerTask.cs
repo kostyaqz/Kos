@@ -55,16 +55,16 @@ namespace Digger
 
             switch (key)
             {
-                case Keys.Left when Border.IsNoBorder(x, y, "Left") && !(Game.Map[x - 1, y] is Sack):
+                case Keys.Left when Border.IsNoBorder(x, y, Direction.Left) && !(Game.Map[x - 1, y] is Sack):
                     act.DeltaX = -1;
                     break;
-                case Keys.Right when Border.IsNoBorder(x, y, "Right") && !(Game.Map[x + 1, y] is Sack):
+                case Keys.Right when Border.IsNoBorder(x, y, Direction.Right) && !(Game.Map[x + 1, y] is Sack):
                     act.DeltaX = 1;
                     break;
-                case Keys.Up when Border.IsNoBorder(x, y, "Up") && !(Game.Map[x, y - 1] is Sack):
+                case Keys.Up when Border.IsNoBorder(x, y, Direction.Up) && !(Game.Map[x, y - 1] is Sack):
                     act.DeltaY = -1;
                     break;
-                case Keys.Down when Border.IsNoBorder(x, y, "Down") && !(Game.Map[x, y + 1] is Sack):
+                case Keys.Down when Border.IsNoBorder(x, y, Direction.Down) && !(Game.Map[x, y + 1] is Sack):
                     act.DeltaY = 1;
                     break;
             }
@@ -94,7 +94,7 @@ namespace Digger
 
         public CreatureCommand Act(int x, int y)
         {
-            if (Border.IsNoBorder(x, y, "Down"))
+            if (Border.IsNoBorder(x, y, Direction.Down))
             {
                 var nextPoint = Game.Map[x, y + 1];
 
@@ -175,19 +175,19 @@ namespace Digger
 
             switch (direction)
             {
-                case "Left":
+                case Direction.Left:
                     act.DeltaX = -1;
                     break;
-                case "Right":
+                case Direction.Right:
                     act.DeltaX = 1;
                     break;
-                case "Up":
+                case Direction.Up:
                     act.DeltaY = -1;
                     break;
-                case "Down":
+                case Direction.Down:
                     act.DeltaY = 1;
                     break;
-                case "Stop":
+                case Direction.None:
                     break;
             }
 
@@ -202,17 +202,17 @@ namespace Digger
 
     public class Border
     {
-        public static bool IsNoBorder(int x, int y, string direction)
+        public static bool IsNoBorder(int x, int y, Direction direction)
         {
             switch (direction)
             {
-                case "Down":
+                case Direction.Down:
                     return y < Game.MapHeight - 1;
-                case "Up":
+                case Direction.Up:
                     return y > 0;
-                case "Left":
+                case Direction.Left:
                     return x > 0;
-                case "Right":
+                case Direction.Right:
                     return x < Game.MapWidth - 1;
                 default:
                     return false;
@@ -240,27 +240,37 @@ namespace Digger
             return !(Game.Map[x, y] is Terrain) && !(Game.Map[x, y] is Sack) && !(Game.Map[x, y] is Monster);
         }
 
-        public static string GetMonsterDirection(int xMonster, int yMonster, int xPlayer, int yPlayer)
+        public static Direction GetMonsterDirection(int xMonster, int yMonster, int xPlayer, int yPlayer)
         {
-            var direction = "";
+            Direction direction = 0;
+
             if (xPlayer == xMonster)
             {
                 if (yPlayer < yMonster && CanMonsterGo(xMonster, yMonster - 1))
-                    direction = "Up";
+                    direction = Direction.Up;
                 else if (yPlayer > yMonster && CanMonsterGo(xMonster, yMonster + 1))
-                    direction = "Down";
+                    direction = Direction.Down;
             }
             else
             {
                 if (xPlayer < xMonster && CanMonsterGo(xMonster - 1, yMonster))
-                    direction = "Left";
+                    direction = Direction.Left;
                 else if (xPlayer > xMonster && CanMonsterGo(xMonster + 1, yMonster))
-                    direction = "Right";
+                    direction = Direction.Right;
             }
 
-            if (Border.IsNoBorder(xMonster, yMonster, direction) && direction != "")
+            if (Border.IsNoBorder(xMonster, yMonster, direction) && direction != 0)
                 return direction;
-            return "Stop";
+            return Direction.None;
         }
+    }
+
+    public enum Direction
+    {
+        Up,
+        Down,
+        Left,
+        Right,
+        None
     }
 }
