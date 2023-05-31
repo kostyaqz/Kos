@@ -78,7 +78,7 @@ namespace Digger
         }
     }
 
-    public abstract class Sack : ICreature
+    public class Sack : ICreature
     {
         private int _counter;
 
