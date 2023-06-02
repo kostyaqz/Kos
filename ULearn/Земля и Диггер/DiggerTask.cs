@@ -98,7 +98,8 @@ namespace Digger
             {
                 var nextPoint = Game.Map[x, y + 1];
 
-                if (nextPoint is null || (nextPoint is Player && _counter > 0) || (nextPoint is Monster && _counter > 0))
+                if (nextPoint is null || (nextPoint is Player && _counter > 0) ||
+                    (nextPoint is Monster && _counter > 0))
                 {
                     _counter++;
                     return new CreatureCommand { DeltaY = 1 };
@@ -222,14 +223,13 @@ namespace Digger
 
     public abstract class PlayerLocation
     {
-
         public static (int x, int y) GetPlayerPoint()
         {
             for (var i = 0; i < Game.MapWidth; i++)
             for (var j = 0; j < Game.MapHeight; j++)
                 if (Game.Map[i, j] is Player)
                     return (i, j);
-            return (-1, -1 );
+            return (-1, -1);
         }
     }
 
@@ -267,7 +267,7 @@ namespace Digger
 
     public enum Direction
     {
-        Up,
+        Up = 1,
         Down,
         Left,
         Right,
