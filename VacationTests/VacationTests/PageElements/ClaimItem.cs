@@ -19,18 +19,15 @@ namespace VacationTests.PageElements
                 x.WithTid("AcceptButton")));
             RejectButton = controlFactory.CreateControl<Button>(Container.Search(x =>
                 x.WithTid("RejectButton")));
-            //User = controlFactory.CreateControl<Label>(Container.Search(x =>
-                //x.WithTid("UserFioLabel")));
+            User = controlFactory.CreateControl<Label>(Container.Search(x =>
+                x.WithTid("UserFioLabel")));
         }
 
+        public Label User { get; }
         public Button RejectButton { get; set; }
-
         public Button AcceptButton { get; set; }
-
         public Label StatusLabel { get; }
-
         public Label PeriodLabel { get; }
-
         public Link Title { get; }
     }
 }

@@ -21,7 +21,6 @@ namespace VacationTests.PageObjects
         }
 
         public ClaimList AdminClaimList { get; }
-
         public Label TitleLabel { get; }
         public Link ClaimsTab { get; }
         public Button DownloadButton { get; }
