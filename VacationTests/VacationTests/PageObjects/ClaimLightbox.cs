@@ -1,4 +1,5 @@
 using Kontur.Selone.Extensions;
+using Kontur.Selone.Waiting;
 using OpenQA.Selenium;
 using VacationTests.Infrastructure;
 using VacationTests.Infrastructure.PageElements;
@@ -6,7 +7,7 @@ using VacationTests.PageElements;
 
 namespace VacationTests.PageObjects
 {
-    public class ClaimLightbox : PageBase
+    public class ClaimLightbox : PageBase, ILoadable
     {
         private readonly ControlFactory controlFactory;
 
@@ -50,6 +51,16 @@ namespace VacationTests.PageObjects
         private IWebElement GetModalContext()
         {
             return ClaimModal.GetPortalElement();
+        }
+
+        public void WaitLoaded(int? timeout = null)
+        {
+            ModalHeaderLabel.WaitPresence(timeout);
+        }
+
+        public void WaitNotDisplayed(int? timeout = null)
+        {
+            ModalHeaderLabel.WaitAbsence(timeout);
         }
     }
 }

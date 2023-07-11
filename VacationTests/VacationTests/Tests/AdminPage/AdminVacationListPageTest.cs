@@ -20,9 +20,9 @@ namespace VacationTests.Tests.AdminPage
         {
             var pageFirst = Navigation.OpenEmployeeVacationListPage();
 
-            CreateClaimFromUI.Create(DateTime.Now.AddDays(5).Date, DateTime.Today.AddDays(15).Date, pageFirst);
+            ClaimHelper.CreateClaimFromUI(DateTime.Now.AddDays(5).Date, DateTime.Today.AddDays(15).Date, pageFirst);
             var pageSecond = Navigation.OpenEmployeeVacationListPage("2");
-            CreateClaimFromUI.Create(DateTime.Now.AddDays(15).Date, DateTime.Today.AddDays(30).Date, pageSecond);
+            ClaimHelper.CreateClaimFromUI(DateTime.Now.AddDays(15).Date, DateTime.Today.AddDays(30).Date, pageSecond);
             var adminPage = Navigation.OpenAdminVacationListPage();
 
             adminPage.AdminClaimList.Item.Select(x => x.Title.Text).Wait()
@@ -52,17 +52,18 @@ namespace VacationTests.Tests.AdminPage
                 Props.Create(x.User.Text, x.PeriodLabel.Text, x.StatusLabel.Text)).Wait().EquivalentTo(expected);
         }
 
-        [Test]
-        public void AdminPage_CreateClaimFrom3UsersWithDifferentStatuses_CheckButtonVisible()
+        [TestCase(ClaimStatus.Accepted, false)]
+        [TestCase(ClaimStatus.NonHandled, true)]
+        [TestCase(ClaimStatus.Rejected, false)]
+        public void AdminPage_CreateClaimFrom3UsersWithDifferentStatuses_CheckButtonVisible(ClaimStatus status,
+            bool needShowButtonInList)
         {
-            var claim1 = Claim.CreateDefault() with { UserId = "1", Id = "1", Status = ClaimStatus.Accepted };
-            var claim2 = Claim.CreateDefault() with { UserId = "2", Id = "2", Status = ClaimStatus.NonHandled };
-            var claim3 = Claim.CreateDefault() with { UserId = "3", Id = "3", Status = ClaimStatus.Rejected };
-            var expected = new[] { (false, false), (true, true), (false, false) };
+            var claim1 = Claim.CreateDefault() with { Status = status };
+            var expected = new[] { (needShowButtonInList, needShowButtonInList) };
 
             var adminPage = Navigation.OpenAdminVacationListPage();
             ClaimStorage.ClearClaims();
-            ClaimStorage.Add(new[] { claim1, claim2, claim3 });
+            ClaimStorage.Add(new[] { claim1 });
             adminPage.Refresh();
 
             adminPage.AdminClaimList.Item.Select(x =>
@@ -76,6 +77,7 @@ namespace VacationTests.Tests.AdminPage
 
             var adminPage = Navigation.OpenAdminVacationListPage();
             adminPage.AdminClaimList.Item.Count.Wait().EqualTo(0);
+            adminPage.NoClaimText.Text.Wait().EqualTo("Нет заявлений");
             ClaimStorage.Add(new[] { claim });
             adminPage.Refresh();
 
@@ -87,6 +89,8 @@ namespace VacationTests.Tests.AdminPage
             lightbox.StatusLabel.Text.Wait().EqualTo(ClaimStatus.NonHandled.GetDescription());
             lightbox.PeriodLabel.Text.Wait()
                 .EqualTo(DateTimeToString.CreateStringPeriodFromDateTime(claim.StartDate.Date, claim.EndDate.Date));
+            lightbox.ModalHeaderLabel.Text.Wait().EqualTo("Иванов Петр Семенович");
+            lightbox.ClaimTypeLabel.Text.Wait().EqualTo(ClaimType.Paid.GetDescription());
         }
 
         [TestCaseSource(nameof(ButtonCasesForList))]
@@ -98,12 +102,12 @@ namespace VacationTests.Tests.AdminPage
             var adminPage = Navigation.OpenAdminVacationListPage();
             ClaimStorage.Add(new[] { claim });
             adminPage.Refresh();
-            adminPage.AdminClaimList.Item.Select(x => x.StatusLabel.Text).Wait()
-                .EquivalentTo(new[] { ClaimStatus.NonHandled.GetDescription() });
+            var statusLabel = adminPage.AdminClaimList.Item.Select(x => x.StatusLabel.Text);
+            statusLabel.Wait().EquivalentTo(new[] { ClaimStatus.NonHandled.GetDescription() });
             var claimItem = adminPage.AdminClaimList.Item.Single();
             getButton(claimItem).Click();
 
-            adminPage.AdminClaimList.Item.Select(x => x.StatusLabel.Text).Wait().EquivalentTo(new[] { expectedStatus });
+            statusLabel.Wait().EquivalentTo(new[] { expectedStatus });
             ClaimStorage.ClearClaims();
         }
 
@@ -118,11 +122,12 @@ namespace VacationTests.Tests.AdminPage
             adminPage.Refresh();
 
             var lightbox = adminPage.AdminClaimList.Item.Single().Title.ClickAndOpen<ClaimLightbox>();
+            lightbox.WaitLoaded();
             lightbox.StatusLabel.Text.Wait().EqualTo(ClaimStatus.NonHandled.GetDescription());
-            var footer = lightbox.Footer;
-            var page = getButton(footer).ClickAndOpen<AdminVacationListPage>();
+            getButton(lightbox.Footer).Click();
+            lightbox.ModalHeaderLabel.Present.Wait().EqualTo(false);
 
-            page.AdminClaimList.Item.Select(x => x.StatusLabel.Text).Wait()
+            adminPage.AdminClaimList.Item.Select(x => x.StatusLabel.Text).Wait()
                 .EquivalentTo(new[] { expectedStatus });
             ClaimStorage.ClearClaims();
         }

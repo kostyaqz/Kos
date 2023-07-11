@@ -5,9 +5,9 @@ using VacationTests.PageObjects;
 
 namespace VacationTests.Infrastructure
 {
-    public class CreateClaimFromUI
+    public class ClaimHelper
     {
-        public static void Create(DateTime startDate, DateTime endDate, EmployeeVacationListPage page)
+        public static void CreateClaimFromUI(DateTime startDate, DateTime endDate, EmployeeVacationListPage page)
         {
             page.WaitLoaded();
             var itemCount = page.ClaimList.Items.Count.Get();

@@ -24,8 +24,8 @@ namespace VacationTests.PageElements
         }
 
         public Label User { get; }
-        public Button RejectButton { get; set; }
-        public Button AcceptButton { get; set; }
+        public Button RejectButton { get; }
+        public Button AcceptButton { get; }
         public Label StatusLabel { get; }
         public Label PeriodLabel { get; }
         public Link Title { get; }
