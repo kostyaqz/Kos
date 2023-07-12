@@ -10,26 +10,29 @@ namespace VacationTests.Infrastructure
     {
         static MyBrowserPool()
         {
-            Pool = pool;
+            pool = new WebDriverPool(new ChromeDriverFactory(), cleaner);
         }
 
-        //С конструктором непонятно. Для пользования им нужны свойства, но по заданию нужно сделать поле
-        //В итоге сделал и то, и то
         static IWebDriverPool pool;
-        public static IWebDriverPool Pool { get; set; }
+
+
         private static ConcurrentDictionary<string, IWebDriver> webDriversMap = new();
         private static string key => TestContext.CurrentContext.Test.ID ?? "debug";
+
         public static IWebDriver Get()
         {
-            var browser = webDriversMap.GetOrAdd(key,
-                _ => new WebDriverPool(new ChromeDriverFactory(),cleaner).Acquire());
+            var browser = webDriversMap.GetOrAdd(key, pool.Acquire());
             return browser;
         }
 
+        //public static void Release() => Get().ResetWindows();
+
         public static void Release()
         {
-            //Вот тут явно ошибка и я не понимаю что в метод требуется подставить
-            webDriversMap.TryRemove(key, pool);
+            //Вот сюда не понимаю откуда взять browser Для того, чтобы в него вернуть
+            //Если даже скопировать конструкцию по инициализации browser из Get(),
+            //то даже так не лезет
+            webDriversMap.TryRemove(key, pool.Release());
         }
 
         public static void Dispose()
