@@ -1,3 +1,6 @@
+using Kontur.Selone.Selectors;
+using OpenQA.Selenium;
+
 namespace VacationTests.Infrastructure
 {
     public class ByTidAttribute : BaseSearchByAttribute
@@ -6,5 +9,7 @@ namespace VacationTests.Infrastructure
             : base(x => x.WithTid(tid))
         {
         }
+
+
     }
 }
