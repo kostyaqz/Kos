@@ -102,12 +102,11 @@ namespace VacationTests.Tests.AdminPage
             var adminPage = Navigation.OpenAdminVacationListPage();
             ClaimStorage.Add(new[] { claim });
             adminPage.Refresh();
-            var statusLabel = adminPage.AdminClaimList.Item.Select(x => x.StatusLabel.Text);
-            statusLabel.Wait().EquivalentTo(new[] { ClaimStatus.NonHandled.GetDescription() });
             var claimItem = adminPage.AdminClaimList.Item.Single();
+            claimItem.StatusLabel.Text.Wait().EqualTo(ClaimStatus.NonHandled.GetDescription());
             getButton(claimItem).Click();
 
-            statusLabel.Wait().EquivalentTo(new[] { expectedStatus });
+            claimItem.StatusLabel.Text.Wait().EqualTo(expectedStatus);
             ClaimStorage.ClearClaims();
         }
 
@@ -127,8 +126,7 @@ namespace VacationTests.Tests.AdminPage
             getButton(lightbox.Footer).Click();
             lightbox.ModalHeaderLabel.Present.Wait().EqualTo(false);
 
-            adminPage.AdminClaimList.Item.Select(x => x.StatusLabel.Text).Wait()
-                .EquivalentTo(new[] { expectedStatus });
+            adminPage.AdminClaimList.Item.Single().StatusLabel.Text.Wait().EqualTo(expectedStatus);
             ClaimStorage.ClearClaims();
         }
 
