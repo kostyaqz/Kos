@@ -21,18 +21,15 @@ namespace VacationTests.Infrastructure
 
         public static IWebDriver Get()
         {
-            var browser = webDriversMap.GetOrAdd(key, pool.Acquire());
+            var browser = webDriversMap.GetOrAdd(key, _=> pool.Acquire());
             return browser;
         }
 
-        //public static void Release() => Get().ResetWindows();
-
         public static void Release()
         {
-            //Вот сюда не понимаю откуда взять browser Для того, чтобы в него вернуть
-            //Если даже скопировать конструкцию по инициализации browser из Get(),
-            //то даже так не лезет
-            webDriversMap.TryRemove(key, pool.Release());
+
+            if (webDriversMap.TryRemove(key, out var browser))
+                pool.Release(browser);
         }
 
         public static void Dispose()
