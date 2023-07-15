@@ -74,16 +74,8 @@ namespace VacationTests.Infrastructure.PageElements
                     "Для автоматической инициализации полей контрола должен быть известен ISearchContext. " +
                     "Либо укажите IContextBy, либо передайте в зависимости WebDriver.");
 
-
-            var controlProps = value.GetType().GetProperties();
-            foreach (var prop in controlProps)
-            {
-                if (prop.SetMethod is null) continue;
-                var attribute = prop.GetCustomAttribute<InjectControlsAttribute>(true);
-                if (attribute != null)
-                    // Инициализируем контролы объекта
+            if (controlType.GetCustomAttribute<InjectControlsAttribute>(true) != null)
                     InitializePropertiesWithControls(value, searchContext, dependencies);
-            }
             // Возвращаем экземпляр объекта
             return value;
         }
