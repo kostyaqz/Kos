@@ -27,11 +27,11 @@ namespace VacationTests.Infrastructure
 
         public static void Release()
         {
-
             if (webDriversMap.TryRemove(key, out var browser))
                 pool.Release(browser);
         }
 
+        [OneTimeTearDown]
         public static void Dispose()
         {
             pool.Clear();
