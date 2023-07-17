@@ -10,14 +10,14 @@ namespace VacationTests.PageObjects
     [InjectControls]
     public class LoginPage : PageBase, ILoadable
     {
-        public LoginPage(IWebDriver webDriver, ControlFactory controlFactory) : base(webDriver)
+        public LoginPage(IWebDriver webDriver) : base(webDriver)
         {
         }
 
-        [ByTid("TitleLabel")] public Label TitleLabel { get; private set; }
-        [ByTid("LoginAsEmployeeButton")] public Button LoginAsEmployeeButton { get; private set; }
-        [ByTid("Footer")] public PageFooter Footer { get; private set; }
-        [ByTid("LoginAsAdminButton")] public Button LoginAsAdminButton { get; private set; }
+        public Label TitleLabel { get; private set; }
+        public Button LoginAsEmployeeButton { get; private set; }
+        public PageFooter Footer { get; private set; }
+        public Button LoginAsAdminButton { get; private set; }
 
 
 
