@@ -6,6 +6,7 @@ namespace VacationTests.PageElements
 {
     public class DirectorItem : ControlBase
     {
+        [InjectControls]
         public DirectorItem(IContextBy contextBy) : base(contextBy)
         {
         }

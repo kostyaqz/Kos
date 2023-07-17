@@ -9,6 +9,7 @@ namespace VacationTests.PageElements
     // поскольку это тоже контрол и могут понадобиться базовые методы и пропсы
     public class EmployeeClaimItem : ControlBase
     {
+        [InjectControls]
         public EmployeeClaimItem(IContextBy contextBy, ControlFactory controlFactory) : base(contextBy)
         {
             TitleLink = controlFactory.CreateControl<Link>(Container.Search(x => x.WithTid("TitleLink")));

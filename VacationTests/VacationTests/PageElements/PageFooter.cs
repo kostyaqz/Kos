@@ -6,6 +6,7 @@ namespace VacationTests.PageElements
 {
     public class PageFooter : ControlBase
     {
+        [InjectControls]
         public PageFooter(IContextBy contextBy) : base(contextBy)
         {
         }

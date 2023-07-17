@@ -7,6 +7,7 @@ using VacationTests.PageElements;
 
 namespace VacationTests.PageObjects
 {
+    [InjectControls]
     public class ClaimLightbox : PageBase, ILoadable
     {
         private readonly ControlFactory controlFactory;

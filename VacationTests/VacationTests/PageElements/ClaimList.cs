@@ -7,6 +7,7 @@ using VacationTests.Infrastructure.PageElements;
 
 namespace VacationTests.PageElements
 {
+    [InjectControls]
     public class ClaimList : ControlBase
     {
         public ClaimList(IContextBy contextBy, ControlFactory controlFactory) : base(contextBy)

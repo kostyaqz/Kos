@@ -6,6 +6,7 @@ using VacationTests.PageElements;
 
 namespace VacationTests.PageObjects
 {
+    [InjectControls]
     public class AverageDailyEarningsCalculatorPage : PageBase
     {
         public AverageDailyEarningsCalculatorPage(IWebDriver webDriver, ControlFactory controlFactory) : base(webDriver)

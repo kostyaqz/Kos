@@ -5,6 +5,7 @@ using VacationTests.Infrastructure.PageElements;
 
 namespace VacationTests.PageElements
 {
+    [InjectControls]
     public class AverageSalaryRow : ControlBase
     {
         public AverageSalaryRow(IContextBy contextBy, ControlFactory controlFactory) : base(contextBy)

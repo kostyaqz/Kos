@@ -6,6 +6,7 @@ namespace VacationTests.PageElements
 {
     public class ClaimLightboxFooter : ControlBase
     {
+        [InjectControls]
         public ClaimLightboxFooter(IContextBy contextBy) : base(contextBy)
         {
         }

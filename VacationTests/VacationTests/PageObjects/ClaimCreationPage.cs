@@ -6,6 +6,7 @@ using VacationTests.PageElements;
 
 namespace VacationTests.PageObjects
 {
+    [InjectControls]
     public class ClaimCreationPage : PageBase, ILoadable
     {
         public ClaimCreationPage(IWebDriver webDriver) : base(webDriver)

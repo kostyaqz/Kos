@@ -8,6 +8,7 @@ namespace VacationTests.PageObjects
 {
     public class InfoSidePage : PageBase
     {
+        [InjectControls]
         // Lazy<T> – ещё один вариант работы с элементами, которых надо искать лениво
         // Свойство Value вернёт выполненный код
 

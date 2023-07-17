@@ -6,6 +6,7 @@ using VacationTests.PageElements;
 
 namespace VacationTests.PageObjects
 {
+    [InjectControls]
     public class AdminVacationListPage : PageBase
     {
         public AdminVacationListPage(IWebDriver webDriver, ControlFactory controlFactory) : base(webDriver)
